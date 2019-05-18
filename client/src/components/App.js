@@ -17,7 +17,6 @@ class App extends Component {
           <Route exact path={Routes.LOGIN} component={LoginScreen} />  
           <Route exact path={Routes.SERVICES} component={Services} />
           <Route exact path={Routes.FEEDBACK} component={FeedbackScreen} />
-          <Route exact path={Routes.TRAINER_FEEDBACK} component={TrainerFeedback} />
 
         </Switch>
       </main>
