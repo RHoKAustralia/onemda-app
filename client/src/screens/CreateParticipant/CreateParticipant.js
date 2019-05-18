@@ -1,7 +1,16 @@
 import React from 'react';
 import { Formik } from 'formik';
 import Select from 'react-select';
+import * as Yup from "yup";
+const CreateUserSchema = Yup.object().shape({
 
+    userType: Yup.object().required('Required'),
+    username: Yup.string().required('Required'),
+    firstName: Yup.string().required('Required'),
+    lastName: Yup.string().required('Required')
+
+
+});
 
 const USER_TYPES = [
     {
@@ -30,6 +39,7 @@ export function CreateParticipant({ }) {
             initialValues={{
                 //Initial values go here. 
             }}
+            validationSchema={CreateUserSchema}
             onSubmit={(values, formikBag) => {
                 console.log(values);
             }}>{({
@@ -40,6 +50,7 @@ export function CreateParticipant({ }) {
                 handleBlur,
                 handleSubmit,
                 isSubmitting,
+                isValid,
 
                 setFieldValue,
 
@@ -47,29 +58,48 @@ export function CreateParticipant({ }) {
             }) => {
                 return (
                     <form
-                        style = {{
-                            display: "flex", 
-                            flexFlow: "column nowrap", 
-                            maxWidth: 800, 
-                            margin: "0 auto", 
+                        onSubmit = {handleSubmit}
+                        style={{
+                            display: "flex",
+                            flexFlow: "column nowrap",
+                            maxWidth: 800,
+                            margin: "0 auto",
                         }}
                     >
+
+                        {JSON.stringify(values)}
                         <Select
-                            options={USER_TYPES} />
+                            options={USER_TYPES}
+                            onChange={v =>setFieldValue("userType", v)
+                            }
+                            id="userType"
+                        />
                         <input type="text"
                             name="firstName"
                             placeholder="First Name"
+                            onChange={handleChange}
                         />
                         <input type="text"
                             name="lastName"
                             placeholder="Last Name"
+                            onChange={handleChange}
                         />
                         <input type="email"
                             name="email"
-                            placeholder="Email" />
+                            placeholder="Email"
+                            onChange={handleChange}
+                        />
                         <input type="text"
                             name="username"
-                            placeholder="Username" />
+                            placeholder="Username"
+                            onChange={handleChange}
+                        />
+
+
+                        <button
+                            type="submit"
+                            disabled={!isValid || isSubmitting}
+                        >Submit</button>
                     </form>
                 )
             }}</Formik>
