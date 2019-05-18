@@ -1,33 +1,14 @@
-import React, { Component } from 'react'
-import ListItem from '../ListItem'
+import React from 'react';
+import Select from "react-select"; 
 
-class FilterList extends Component {
-  constructor(props) {
-    super(props)
-    const { values } = props
-    this.state = {
-      fullItems: values,
-      displayItems: [] 
-    }
-  }
 
-  handleChange = (e) => {
-    const filteredItems = this.state.fullItems.filter(item => item.includes(e.target.value))
-    if (e.target.value !== '') {
-      this.setState({displayItems: filteredItems})
-    } else {
-      this.setState({displayItems: []})
-    }
-  }
+export function FilterList ({handleChange, options}) {
+  console.log(options); 
 
-  render() {
-    return (
-      <div>
-          <input type="text" onChange={(e) => this.handleChange(e)}/>
-          {this.state.displayItems.map(item => {return (<ListItem value={item}/>)})}
-      </div>
-    )
-  }
+
+    return (    <Select options = {options} onChange= {v => handleChange(v.value)}/>
+
+        );
+
 }
 
-export default FilterList

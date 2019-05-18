@@ -13,6 +13,9 @@ export function TrainerFeedback({ }) {
             }}
             onSubmit={(values, formikBag) => {
                 console.log(values);
+
+
+                //graphql 
             }}>{({
                 values,
                 errors,
@@ -37,7 +40,7 @@ export function TrainerFeedback({ }) {
                         <EngagmentSelector id='0'
                             handleSelect={handleEngagementChange('0')} />
 
-                        <strong>How Engaged Was The Partipant?</strong>
+                        <strong>How Much Did They Enjoy it?</strong>
                         <EngagmentSelector id='1'
                             handleSelect={handleEngagementChange('1')} />
 
