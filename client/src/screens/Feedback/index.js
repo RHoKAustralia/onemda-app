@@ -19,29 +19,45 @@ const FEEDBACK_QUERY = gql`
 `
 
 const CREATE_FEEDBACK_MUTATION = gql`
-  mutation createFeedback($activityID: String!, $trainerID: String!, $participantID: String!, $participantFeedback: String!, $trainerFeedback: [TrainerFeedbackInput]!, $comment: String!) {
-    createFeedback(activityID: $activityID, trainerID: $trainerID, participantID: $participantID, participantFeedback: $participantFeedback, trainerFeedback: $trainerFeedback, comment: $comment) {
+  mutation createFeedback(
+    $activityID: String!,
+    $trainerID: String!,
+    $participantID: String!,
+    $participantFeedback: String!,
+    $trainerFeedback: [TrainerFeedbackInput]!,
+    $comment: String!
+  ) {
+    createFeedback(
+     activityID: $activityID,
+     trainerID: $trainerID,
+     participantID: $participantID,
+     participantFeedback: $participantFeedback,
+     trainerFeedback: $trainerFeedback,
+     comment: $comment
+    ) {
       id
     }
   }
 `
 
-class FeedbackScreen extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: {}
-    }
-  }
+export default function ({ }) {
 
-  handleChange = (e) => {
-    console.log(e)
-  }
+  return (<Query query={FEEDBACK_QUERY}>
+    {({ error, loading, data }) => {
+      if (loading) return <div>Fetching data...</div>
+      if (error) return <div>Error</div>
+      const activities = data.activities;
+      const users = data.users;
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+      return (
 
-  }
+        <Mutation
+          mutation={CREATE_FEEDBACK_MUTATION}
+          onCompleted={() => {
+            console.log('complete')
+          }}
+        >
+          {(feedback, { loading, error }) => {
 
   handleSelect = (data) => {
     const {
@@ -50,46 +66,25 @@ class FeedbackScreen extends Component {
       selectedID
     } = data
   }
+            if (error) {
+              console.log(error)
+              console.log(error)
+            }
 
-  render() {
-    return (
-      <Query query={FEEDBACK_QUERY}>
-        {({ error, loading, data }) => {
-          if (loading) return <div>Fetching data...</div>
-          if (error) return <div>Error</div>
-          const activities = data.activities;
-          const users = data.users;
+            return (
+              <FeedbackFormRender
+                feedback={feedback}
+                activities={activities}
+                users={users}
+                initialValues={{}} />
 
-          return (
+            )
+          }}
+        </Mutation>
+      )
+    }}
+  </Query>
+  );
 
-            <Mutation
-              mutation={CREATE_FEEDBACK_MUTATION}
-              onCompleted={() => {
-                console.log('complete')
-              }}
-            >
-              {(feedback, { loading, error }) => {
-
-                if (error) {
-                  console.log(error)
-                  console.log(error)
-                }
-
-                return (
-                  <FeedbackFormRender
-                    feedback={feedback}
-                    activities={activities}
-                    users={users}
-                    initialValues={{}} />
-
-                )
-              }}
-            </Mutation>
-          )
-        }}
-      </Query>
-    )
-  }
 }
 
-export default FeedbackScreen

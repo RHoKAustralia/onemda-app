@@ -6,18 +6,18 @@ class LoginForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      username: '',
       password: '',
     }
   }
 
   submitForm = (e) => {
     e.preventDefault()
-    this.props.onLogin({variables: {email: this.state.email, password: this.state.password} })
+    this.props.onLogin({variables: {username: this.state.username, password: this.state.password} })
   }
 
-  onChangeEmail = (e) => {
-    this.setState({email: e.target.value})
+  onChangeUsername = (e) => {
+    this.setState({username: e.target.value})
   }
 
   onChangePassword = (e) => {
@@ -27,8 +27,8 @@ class LoginForm extends Component {
   render() {
     return (
         <form className="login__form" onSubmit={(e) => this.submitForm(e)}>
-          <span className="login__email">email <input type="text" onChange={(e) => this.onChangeEmail(e)}/></span>
-          <span className="login__password">password<input type="text" onChange={(e) => this.onChangePassword(e)}/></span>
+          <span className="login__username">username <input type="text" onChange={(e) => this.onChangeUsername(e)}/></span>
+          <span className="login__password">password <input type="text" onChange={(e) => this.onChangePassword(e)}/></span>
           <button className="login__submit_button">Submit</button>
         </form>
     )
