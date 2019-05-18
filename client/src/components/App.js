@@ -5,7 +5,6 @@ import FeedbackScreen from '../screens/Feedback'
 import NavBar from './NavBar'
 import '../styles/App.css'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { TrainerFeedback } from '../screens/Feedback/TrainerFeedback';
 import * as Routes from "./NavBar/routes"; 
 class App extends Component {
   render() {
