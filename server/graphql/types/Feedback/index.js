@@ -5,13 +5,28 @@ export default `
     Average,
     High,
   }
+  enum AssistanceRating {
+    None,
+    Low,
+    High
+  }
+  input AssistanceFeedbackInput {
+    verbal: AssistanceRating
+    physical: AssistanceRating
+  }
+  type AssistanceFeedback {
+    verbal: AssistanceRating
+    physical: AssistanceRating
+  }
   type TrainerFeedback {
-    enjoyment: FeedbackRating
-    engagement: FeedbackRating
+    enjoyment: FeedbackRating!
+    engagement: FeedbackRating!
+    assistance: AssistanceFeedback
   }
   input TrainerFeedbackInput {
     enjoyment: FeedbackRating
     engagement: FeedbackRating
+    assistance: AssistanceFeedbackInput
   }
   type Feedback {
     id: String!

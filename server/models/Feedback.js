@@ -8,6 +8,25 @@ export const Engagement = Object.freeze({
   High: 'High',
 })
 
+export const AssistanceRating = Object.freeze({
+  None: 'None',
+  Average: 'Average',
+  High: 'High'
+})
+
+const AssistanceFeedback = new Schema({
+  physical: {
+    type: AssistanceRating,
+    required: true,
+    default: AssistanceRating.None
+  },
+  verbal: {
+    type: AssistanceRating,
+    required: true,
+    default: AssistanceRating.None
+  }
+})
+
 const TrainerFeedbackSchema = new Schema({
   enjoyment: {
     type: Engagement,
@@ -17,6 +36,10 @@ const TrainerFeedbackSchema = new Schema({
   engagement: {
     type: Engagement,
     enum: Object.values(Engagement),
+    required: true
+  },
+  assistance: {
+    type: AssistanceFeedback,
     required: true
   }
 })
