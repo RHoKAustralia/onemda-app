@@ -2,7 +2,14 @@ import React from 'react';
 import { FilterList } from '../../components/FilterList';
 import { FeedbackCard } from '../../components/FeedbackCard';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
+const FeedbackSchema = Yup.object().shape({
+    user: Yup.object().required('Required'),
+    activity: Yup.object().required('Required')
+    
+  });
+  
 
 export function FeedbackFormRender({ 
     feedback, 
@@ -14,6 +21,7 @@ export function FeedbackFormRender({
     return (
         <Formik
             initialValues={initialValues}
+            validationSchema = {FeedbackSchema}
             onSubmit={(values, formikBag) => {
                 console.log(values);
                 //Values from form come in here. 
@@ -44,6 +52,7 @@ export function FeedbackFormRender({
             handleBlur,
             handleSubmit,
             isSubmitting,
+            isValid,
 
             setFieldValue,
 
@@ -57,6 +66,8 @@ export function FeedbackFormRender({
 
             return (
                 <form onSubmit={handleSubmit}>
+                    {JSON.stringify(errors)}\
+                    {JSON.stringify(isValid)}
                     <p>Submit Feedback</p>
                     <div>Activities</div>
                     <FilterList options={activities.map(v => ({
@@ -80,6 +91,7 @@ export function FeedbackFormRender({
                         value={values.comment}
                         onChange={handleChange} />
                     <button
+                        disabled={!isValid}
                         type="submit"
                     >Submit</button>
                 </form>
