@@ -2,32 +2,31 @@ version: '3'
 
 services:
   server:
-    image: onemda-server:latest
-    depends_on:
-      - mongodb
-    ports:
-      - 4000:4000
-    volumes:
-      - .:/server
-    working_dir: /app
     environment:
       JWT_TOKEN: test
       DB_URL: mongodb://mongodb:27017/theonemdadb
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    command: /bin/sh -c 'npm build && npm run server'
+
 
   client:
-    image: onemda-client:latest
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
-    volumes:
-      - .:/client
-    working_dir: /app
+    command: /bin/sh -c 'npm build && npm start'
 
   mongodb:
     image: mongo
     ports:
       - 27017:27017
     volumes:
-      - data:/data/db
+      - onemda-data:/data/db
 
 volumes:
-  data:
+  onemda-data:
