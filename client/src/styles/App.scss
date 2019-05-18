@@ -17,3 +17,16 @@
     margin: 0 auto;
 
   }
+
+form {
+
+  max-width: 600px; 
+  display: block; 
+  margin: 0 auto; 
+  &>* {
+    margin: 0.5em 0; 
+  }
+  input, button {
+    padding: 0.5em;
+  }
+}
