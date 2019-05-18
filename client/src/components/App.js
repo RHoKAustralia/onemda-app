@@ -3,7 +3,7 @@ import Services from './Services'
 import LoginScreen from '../screens/Login'
 import FeedbackScreen from '../screens/Feedback'
 import NavBar from './NavBar'
-import '../styles/App.css'
+import '../styles/App.scss'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import * as Routes from "./NavBar/routes"; 
 import { AdminPage } from '../screens/Admin/Admin';

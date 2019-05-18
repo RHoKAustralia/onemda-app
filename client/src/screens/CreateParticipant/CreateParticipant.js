@@ -66,8 +66,6 @@ export function CreateParticipant({ }) {
                             margin: "0 auto",
                         }}
                     >
-
-                        {JSON.stringify(values)}
                         <Select
                             options={USER_TYPES}
                             onChange={v =>setFieldValue("userType", v)
