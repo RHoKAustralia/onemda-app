@@ -69,6 +69,11 @@ Run all commands from the root directory. To start up the client, server and Mon
 docker-compose up
 ```
 
+To rebuild the image, run:
+```
+docker-compose build
+```
+
 ## Populate db with test data
 Note that this simply runs `npm run seed` inside the `server` container as it relies on some dependencies in the server application.
 ```
