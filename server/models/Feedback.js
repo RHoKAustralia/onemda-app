@@ -2,20 +2,20 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 export const Engagement = Object.freeze({
-  Low: '0',
-  Minimal: '1',
-  Average: '2',
-  High: '3',
+  Low: 'Low',
+  Minimal: 'Minimal',
+  Average: 'Average',
+  High: 'High',
 })
 
 const TrainerFeedbackSchema = new Schema({
-  serviceID: {
-    type: mongoose.Schema.Types.ObjectId,
+  enjoyment: {
+    type: Engagement,
+    enum: Object.values(Engagement),
     required: true,
-    ref: 'Service'
   },
   engagement: {
-    type: String,
+    type: Engagement,
     enum: Object.values(Engagement),
     required: true
   }
@@ -39,7 +39,7 @@ const FeedbackSchema = new Schema({
     enum: Object.values(Engagement),
     required: true
   },
-  trainerFeedback: [TrainerFeedbackSchema],
+  trainerFeedback: TrainerFeedbackSchema,
   comment: {
     type: String,
   },
