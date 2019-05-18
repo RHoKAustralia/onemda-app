@@ -1,25 +1,31 @@
 export default `
+  enum FeedbackRating {
+    Low,
+    Minimal,
+    Average,
+    High,
+  }
   type TrainerFeedback {
-    serviceID: String!
-    engagement: String!
+    enjoyment: FeedbackRating
+    engagement: FeedbackRating
   }
   input TrainerFeedbackInput {
-    serviceID: String!
-    engagement: String!
+    enjoyment: FeedbackRating
+    engagement: FeedbackRating
   }
   type Feedback {
     id: String!
     activityID: String!
     trainerID: String!
     participantID: String!
-    participantFeedback: String
-    trainerFeedback: [TrainerFeedback]
+    participantFeedback: FeedbackRating
+    trainerFeedback: TrainerFeedback!
     comment: String
   }
   type Query {
-    feedback: [Feedback]
+    feedback: [Feedback!]
   }
   type Mutation {
-    createFeedback(activityID: String!, participantID: String!, participantFeedback: String!, trainerFeedback: [TrainerFeedbackInput], comment: String): Feedback
+    createFeedback(activityID: String!, participantID: String!, participantFeedback: FeedbackRating!, trainerFeedback: TrainerFeedbackInput!, comment: String): Feedback
   }
 `;
