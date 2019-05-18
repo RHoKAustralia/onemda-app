@@ -4,58 +4,69 @@ import { FeedbackCard } from '../../components/FeedbackCard';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+// TODO: Yup schema validation - Only appears to be checking activity/participants has a value
 const FeedbackSchema = Yup.object().shape({
-    participants: Yup.array().of(Yup.object().required('Required')).max(1),
+    participants: Yup
+        .array()
+        .of(
+            Yup.object().required('Required')
+        ).max(1),
     activity: Yup.object().required('Required'),
-    trainer: {
-        participantEngagement: Yup.object().required('Required'),
-        participantHappiness: Yup.object().required('Required'),
+    feedback: {
+        participant: {
+            happiness: Yup.object().required('Required'),
+        },
+        trainer: {
+            participantEngagement: Yup.object().required('Required'),
+            participantHappiness: Yup.object().required('Required'),
+        },
     },
 });
 
 
 export function FeedbackFormRender({
-    feedback,
     activities,
     users,
     initialValues
 }) {
-
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={FeedbackSchema}
             onSubmit={(values, formikBag) => {
-                console.log(values);
+                let { activity, participants, feedback } = values
+                console.log(values)
                 //Values from form come in here. 
 
                 //NB. there's still a question of matching the correct IDs to the form 
                 //Below. 
 
-                //Mutate graphql here. 
-                feedback({
-                    variables:
-                    {
-                        activityID: values.activity.id,
-                        trainerID: "5cd2cace363cfe4bd9ef981b",
-                        // participantID: values.user.id,
-                        // TODO: use participant's IDs
-                        participantFeedback: "2",
+                // Mutate graphql here. 
+                let participantFeedback = participants.map(participant => ({ participant: participant, feedback: feedback[participant.id] }))
+                console.log(participantFeedback)
 
-                        //Still need to get the trainer feedback. 
+                // TODO: update with actual mutation
 
-                        comment: values.comment
-                    }
-                })
+                // feedback({
+                //     variables:
+                //     {
+                //         activityID: values.activity.id,
+                //         trainerID: "5cd2cace363cfe4bd9ef981b",
+                //         // participantID: values.user.id,
+                //         // TODO: use participant's IDs
+                //         participantFeedback: "2",
+
+                //         //Still need to get the trainer feedback. 
+
+                //         comment: values.comment
+                //     }
+                // })
             }}
         >{({
             values,
             errors,
-            touched,
             handleChange,
-            handleBlur,
             handleSubmit,
-            isSubmitting,
             isValid,
 
             setFieldValue,
@@ -63,10 +74,7 @@ export function FeedbackFormRender({
             /* and other goodies */
         }) => {
 
-            const ourHandleChange = (id) => (value) => {
-                setFieldValue(id, value);
-            }
-
+            const ourHandleChange = (id) => (value) => setFieldValue(id, value);
 
             return (
                 <form onSubmit={handleSubmit}>
@@ -89,7 +97,7 @@ export function FeedbackFormRender({
                         }))}
                         handleChange={ourHandleChange('participants')} />
 
-                    <FeedbackCard handleChange={ourHandleChange} />
+                    {values.participants.map(participant => <FeedbackCard participant={participant} handleChange={ourHandleChange} />)}
 
                     <div>Comments</div>
                     <input
