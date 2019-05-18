@@ -13,9 +13,11 @@ export const Role = Object.freeze({
 // Create the User Schema.
 const UserSchema = new Schema({
   email: {
+    type: String
+  },
+  name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   password: {
     type: String,
@@ -26,6 +28,11 @@ const UserSchema = new Schema({
     enum: Object.values(Role),
     default: [Role.Participant],
     required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
   }
 }, {collection: 'users', timestamps: true});
 

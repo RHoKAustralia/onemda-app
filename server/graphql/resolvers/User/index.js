@@ -32,13 +32,19 @@ export default {
     }
   },
   Mutation: {
-    async createUser (root, { email, password, roles }, { user }) {
+    async createUser (root, { username, name, email, password, roles }, { user }) {
       const isUserAdmin = await isAdmin(user)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to create a user')
       }
 
-      const newUser = new User({ email, password, roles });
+      const newUser = new User({
+        username,
+        name,
+        email,
+        password,
+        roles
+      });
 
       return new Promise((resolve, reject) => {
         newUser.save((err, res) => {
@@ -46,14 +52,14 @@ export default {
         });
       });
     },
-    async editUser (root, { id, email, password, roles }, { user }) {
+    async editUser (root, { id, name, email, password, roles }, { user }) {
       const isUserAdmin = await isAdmin(user)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to edit a user')
       }
 
       return new Promise((resolve, reject) => {
-        User.findOneAndUpdate({ id }, { $set: { email, password, roles } }).exec(
+        User.findOneAndUpdate({ id }, { $set: { name, email, password, roles } }).exec(
           (err, res) => {
             err ? reject(err) : resolve(res);
           }
