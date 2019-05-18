@@ -4,7 +4,19 @@ import mongoose from "mongoose";
 import connectToMongoDb from "../connectToMongoDb";
 import User from "../models/User";
 
-connectToMongoDb(process.env.DB_URL);
+const dbUrl = process.env.DB_URL;
+if (isProd()) {
+  // We don't want to run this on prod.
+  console.log('Not connecting db because env.DB_URL points to prod')
+} else {
+  console.log('Connecting db because env.DB_URL is not prod')
+  connectToMongoDb(process.env.DB_URL);
+}
+
+function isProd() {
+  const isProd = dbUrl.includes('ds113566.mlab.com:13566');
+  return isProd;
+}
 
 mongoose.connection.once(
   "open",
