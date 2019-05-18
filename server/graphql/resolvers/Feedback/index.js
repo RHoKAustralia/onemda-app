@@ -43,7 +43,7 @@ export default {
     },
   },
   Mutation: {
-    async createFeedback (root, { activityID, participantID, trainerID, participantFeedback, trainerFeedback, comment }, { user }) {
+    async createFeedback (root, { activityID, participantID, participantFeedback, trainerFeedback, comment }, { user }) {
     
       try {
         const isUserTrainer = await isTrainer(user)
@@ -51,30 +51,29 @@ export default {
           throw Error('Must be logged in trainer to create feedback.')
         }
 
+        // Validate activity ID
         const activity = await fetchByIDFromModel(activityID, Activity)
-        const userP = await fetchByIDFromModel(participantID, User)
-        const userT = await fetchByIDFromModel(trainerID, User)
-        if (!userT.roles.includes('trainer')) {
-          throw Error('Only trainers can create feedback.')
-        }
 
+        // Validate participant ID
+        const userP = await fetchByIDFromModel(participantID, User)
+
+        // Ensure we are providing feedback on an actual participant
         if (!userP.roles.includes('participant')) {
           throw Error('A participant is required to give feedback on.')
         }
 
-        const services = await Service.find({}).populate().exec()
-        const serviceIDs = trainerFeedback.map(s => s.serviceID)
-        const servicesFromIDs = await fetchServices(serviceIDs)
-        
-        if(servicesFromIDs.length !== serviceIDs.length) {
-          throw Error('Trainer feedback is invalid')
+        // List of service IDs supplied in the form
+        const suppliedServiceIDs = trainerFeedback.map(s => s.serviceID)
+
+        // Grab the list of services mentioned in the feedback
+        const services = await fetchServices(suppliedServiceIDs)
+
+        // Confirm that every service ID supplied in the form maps to an actual service.
+        if (services.length !== suppliedServiceIDs.length) {
+          throw Error("Some services which were supplied are invalid.")
         }
 
-        if (services.length != trainerFeedback.length || new Set(serviceIDs).size != serviceIDs.length) {
-          throw Error(`Must provide feedback for all ${services.length} unique services`)
-        }
-
-        const newFeedback = new Feedback({ activityID: activity._id, participantID, trainerID, participantFeedback, trainerFeedback, comment });
+        const newFeedback = new Feedback({ activityID: activity._id, participantID, trainerID: user.id, participantFeedback, trainerFeedback, comment });
         return await newFeedback.save()
       } catch(e) {
         throw Error(e)
