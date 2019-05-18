@@ -12,7 +12,6 @@ services:
       - 4000:4000
     command: /bin/sh -c 'npm build && npm run server'
 
-
   client:
     build:
       context: ./client
