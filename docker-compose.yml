@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  server:
+    image: onemda-server:latest
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/server
+    working_dir: /app
+    environment:
+      JWT_TOKEN: test
+      DB_URL: mongodb://localhost:27017/theonemdadb
+
+  client:
+    image: onemda-client:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/client
+    working_dir: /app
+
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+
