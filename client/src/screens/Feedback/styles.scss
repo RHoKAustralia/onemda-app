@@ -3,3 +3,23 @@
   margin: 0 auto;
 }
 
+.feedback-card {
+  padding: 1.5em 0;
+  border-bottom: 1px solid gray;
+
+  &__participant-name {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+}
+
+.question-group {
+  margin: 1em 0;
+
+  &__title {
+    font-size: 1.25em;
+    font-weight: 500;
+
+    margin-bottom: 0.25em;
+  }
+}
