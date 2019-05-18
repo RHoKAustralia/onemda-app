@@ -55,3 +55,16 @@ OR
 ```
 yarn run server
 ```
+
+## Running the app using Docker
+To start up the client, server and MongoDB:
+```
+docker-compose up
+```
+
+## Populate db with test data
+Note that this simply runs `npm run seed` inside the `server` container as it relies on some dependencies in the server application.
+```
+./seed-db.sh
+```
+
