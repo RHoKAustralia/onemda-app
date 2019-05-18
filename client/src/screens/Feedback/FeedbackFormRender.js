@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const FeedbackSchema = Yup.object().shape({
-    user: Yup.object().required('Required'),
+    participants: Yup.array().of(Yup.object().required('Required')).max(1),
     activity: Yup.object().required('Required'),
     trainer: {
         participantEngagement: Yup.object().required('Required'),
@@ -38,7 +38,8 @@ export function FeedbackFormRender({
                     {
                         activityID: values.activity.id,
                         trainerID: "5cd2cace363cfe4bd9ef981b",
-                        participantID: values.user.id,
+                        // participantID: values.user.id,
+                        // TODO: use participant's IDs
                         participantFeedback: "2",
 
                         //Still need to get the trainer feedback. 
@@ -79,11 +80,14 @@ export function FeedbackFormRender({
                     }))}
                         handleChange={ourHandleChange('activity')} />
 
-                    <div>Users</div>
-                    <FilterList options={users.map(v => ({
-                        label: v.email,
-                        value: v,
-                    }))} handleChange={ourHandleChange('user')} />
+                    <div>Participants</div>
+                    <FilterList
+                        isMulti
+                        options={users.map(v => ({
+                            label: v.email,
+                            value: v,
+                        }))}
+                        handleChange={ourHandleChange('participants')} />
 
                     <FeedbackCard handleChange={ourHandleChange} />
 
