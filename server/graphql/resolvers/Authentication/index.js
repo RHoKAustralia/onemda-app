@@ -35,7 +35,7 @@ export default {
       }
 
       return jsonwebtoken.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, email: user.email, roles: user.roles },
         process.env.JWT_TOKEN,
         { expiresIn: '1d' }
       )
@@ -47,7 +47,7 @@ export default {
       try {
         const savedUser = await newUser.save()
         const token = jsonwebtoken.sign(
-          { id: savedUser._id, email: savedUser.email },
+          { id: savedUser._id, email: savedUser.email, roles: savedUser.roles },
           process.env.JWT_TOKEN,
           { expiresIn: '1y' }
         )
