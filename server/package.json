@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed": "babel-node bin/seed.js",
     "start": "npm run server",
     "server": "nodemon --exec babel-node index.js"
   },

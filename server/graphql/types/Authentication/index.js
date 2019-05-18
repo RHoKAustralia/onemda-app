@@ -11,7 +11,7 @@ export default `
     none
   }
   type Mutation {
-    signup (email: String!, password: String!): String
-    login (email: String!, password: String!): String
+    signup (username: String!, password: String!, name: String!): String
+    login (username: String!, password: String!): String
   }
 `;
