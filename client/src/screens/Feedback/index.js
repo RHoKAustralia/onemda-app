@@ -1,5 +1,5 @@
 //@flow
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './styles.scss'
@@ -68,7 +68,11 @@ export default function ({ }) {
                 feedback={feedback}
                 activities={activities}
                 users={users}
-                initialValues={{}} />
+                initialValues={{
+                  activities: null,
+                  participants: [],
+                  feedback: {}
+                }} />
 
             )
           }}
