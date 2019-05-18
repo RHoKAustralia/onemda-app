@@ -1,12 +1,8 @@
 //@flow
 import React, { Component, Fragment } from 'react'
-import { FilterList } from '../../components/FilterList'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './styles.scss'
-import { EngagmentSelector } from '../../components/EngagementSelector';
-import { Formik } from 'formik';
-import { FeedbackCard } from '../../components/FeedbackCard';
 import { FeedbackFormRender } from './FeedbackFormRender';
 
 
@@ -62,7 +58,6 @@ export default function ({ }) {
           }}
         >
           {(feedback, { loading, error }) => {
-
             if (error) {
               console.log(error)
               console.log(error)
