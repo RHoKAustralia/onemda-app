@@ -6,21 +6,29 @@ class SelectableButtonGroup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedID: 0
+      selectedID: null, 
     }
   }
 
   handleSelect = (id) => {
-    this.setState({selectedID: id})
+    this.setState({ selectedID: id })
     this.props.handleSelect({
-      id: this.props.id, selectedID: id, value: this.props.values[id]})
+      id: this.props.id, selectedID: id, value: this.props.values[id]
+    })
   }
 
   render() {
     const { values } = this.props
     return (
       <div className='selectable-button-group'>
-        {values.map((v, index) => {return <SelectableButton handleSelect={this.handleSelect}key={index} index={index} value={v} selected={index == this.state.selectedID ? true : false}/>})}
+        {values.map((v, index) => {
+          return <SelectableButton
+            handleSelect={this.handleSelect}
+            key={index}
+            index={index}
+            value={v}
+            selected={index === this.state.selectedID ? true : false} />
+        })}
       </div>
     )
   }
