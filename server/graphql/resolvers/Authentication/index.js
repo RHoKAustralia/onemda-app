@@ -21,8 +21,8 @@ export default {
     }
   },
   Mutation: {
-    async login (_, { email, password }) {
-      const user = await User.findOne( { email })
+    async login (_, { username, password }) {
+      const user = await User.findOne( { username })
 
       if (!user) {
         throw new Error('Error logging you in.')
@@ -40,16 +40,16 @@ export default {
         { expiresIn: '1d' }
       )
     },
-    async signup (_, { email, password }) {
+    async signup(_, { username, password, name }) {
       const ePassword = bcrypt.hashSync(password, 10)
-      const newUser = new User({ email, password: ePassword })
+      const newUser = new User({ username, password: ePassword, name })
 
       try {
         const savedUser = await newUser.save()
         const token = jsonwebtoken.sign(
-          { id: savedUser._id, email: savedUser.email, roles: savedUser.roles },
+          { id: savedUser._id, roles: savedUser.roles },
           process.env.JWT_TOKEN,
-          { expiresIn: '1y' }
+          { expiresIn: '1d' }
         )
         return token
       } catch(e) {

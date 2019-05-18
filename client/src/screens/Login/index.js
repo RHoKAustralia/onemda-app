@@ -5,8 +5,8 @@ import LoginForm from '../../components/LoginForm'
 import Loading from '../../components/Loading'
 
 const LOGIN_MUTATION = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password)
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password)
   }
 `
 
@@ -22,7 +22,7 @@ class LoginScreen extends Component {
         Welcome to the login screen
         <ApolloConsumer>
           {client => (
-            <Mutation 
+            <Mutation
               mutation={LOGIN_MUTATION}
               onCompleted={( { login }) => {
                 localStorage.setItem('token', login)
