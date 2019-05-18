@@ -58,14 +58,6 @@ export default function ({ }) {
           }}
         >
           {(feedback, { loading, error }) => {
-
-  handleSelect = (data) => {
-    const {
-      id,
-      value,
-      selectedID
-    } = data
-  }
             if (error) {
               console.log(error)
               console.log(error)
