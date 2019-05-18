@@ -1,4 +1,4 @@
-# Onemda server
+# Onemda Client and Server
 
 This is the onemda feedback application. This has been developed by the team-onemda at RHOK Melbourne Winter hackathon.
 
@@ -17,29 +17,36 @@ https://rhokmelbourne.slack.com/messages/CE15DUG9G
 
 ### Prerequisites
 
-Node must be installed:
-
+Node must be installed:  
 https://nodejs.org/en/download/package-manager/
 
-Mongo must be installed:
-
+Mongo must be installed:  
 https://docs.mongodb.com/manual/installation/
 
-Or you can use docker:
-
-***Insert client setup here***
-
-Yarn must be installed:
-
+Yarn must be installed:  
 https://yarnpkg.com/en/docs/install
 
-## Client
+Or you can use docker:  
+https://docs.docker.com/install/
 
-***Insert client setup here***
+## Client
+Run all commands from the `client` directory.
+
+### Install dependencies
+```
+yarn
+```
+
+### Run the app
+```
+yarn start
+```
+
 
 ## Server
+Run all commands from the `server` directory.
 
-Install dependencies
+### Install dependencies
 ```
 yarn
 ```
@@ -57,7 +64,7 @@ yarn run server
 ```
 
 ## Running the app using Docker
-To start up the client, server and MongoDB:
+Run all commands from the root directory. To start up the client, server and MongoDB:
 ```
 docker-compose up
 ```
