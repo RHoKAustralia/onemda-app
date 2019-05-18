@@ -32,7 +32,7 @@ export default {
     }
   },
   Mutation: {
-    async createUser (root, { username, name, email, password, roles }, { user }) {
+    async createUser (root, { username, name, email, password, roles, stream }, { user }) {
       const isUserAdmin = await isAdmin(user)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to create a user')
@@ -43,7 +43,8 @@ export default {
         name,
         email,
         password,
-        roles
+        roles,
+        stream
       });
 
       return new Promise((resolve, reject) => {

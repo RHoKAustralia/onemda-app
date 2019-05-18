@@ -10,8 +10,21 @@ export const Role = Object.freeze({
   None: 'none'
 })
 
+export const Stream = Object.freeze({
+  None: 'None',
+  Enrichment: 'Enrichment',
+  Living: 'Living',
+  Pathways: 'Pathways',
+  Leap: 'Leap'
+})
+
 // Create the User Schema.
 const UserSchema = new Schema({
+  stream: {
+    type: Stream,
+    required: true,
+    default: Stream.None
+  },
   email: {
     type: String
   },

@@ -6,13 +6,20 @@ export default `
     roles: [String!]!
     username: String!
   }
+  enum Stream {
+    None,
+    Enrichment,
+    Living,
+    Pathways,
+    Leap
+  }
   type Query {
     user(id: String!): User
     users: [User]
     hello: String
   }
   type Mutation {
-    createUser(username: String!, name: String!, email: String, password: String!, roles: [Role!]!): User
+    createUser(username: String!, name: String!, email: String, password: String!, roles: [Role!]!, stream: Stream): User
     editUser(id: String, name: String, email: String, password: String, roles: [Role]): User
     deleteUser(id: String): User
   }
