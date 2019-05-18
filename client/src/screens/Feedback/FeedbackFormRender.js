@@ -6,22 +6,25 @@ import * as Yup from 'yup';
 
 const FeedbackSchema = Yup.object().shape({
     user: Yup.object().required('Required'),
-    activity: Yup.object().required('Required')
-    
-  });
-  
+    activity: Yup.object().required('Required'),
+    trainer: {
+        participantEngagement: Yup.object().required('Required'),
+        participantHappiness: Yup.object().required('Required'),
+    },
+});
 
-export function FeedbackFormRender({ 
-    feedback, 
-    activities, 
-    users, 
+
+export function FeedbackFormRender({
+    feedback,
+    activities,
+    users,
     initialValues
 }) {
 
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema = {FeedbackSchema}
+            validationSchema={FeedbackSchema}
             onSubmit={(values, formikBag) => {
                 console.log(values);
                 //Values from form come in here. 

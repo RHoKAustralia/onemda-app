@@ -1,24 +1,31 @@
-import React, { Fragment } from 'react';
-import { EngagmentSelector } from './EngagementSelector';
-
+import React from 'react';
+import { IntensitySelector } from './IntensitySelector';
 
 export function FeedbackCard({
     handleChange,
-
 }) {
 
-    return (<Fragment>
-        <EngagmentSelector id='0'
-            handleSelect={handleChange('0')}
-            label="How Engaged Was The Partipant?"
-        />
+    return (
+        <div>
+            <h3>Participant Question (Optional)</h3>
+            <IntensitySelector
+                id='participant.happiness'
+                handleSelect={handleChange('0')}
+                label="How happy were you with today’s program? "
+            />
+            <h3>Trainer Questions</h3>
+            <IntensitySelector
+                id='trainer.participantEngagement'
+                handleSelect={handleChange('0')}
+                label="How engaged was the participant in the program?"
+            />
 
-        <EngagmentSelector id='1'
-            handleSelect={handleChange('1')}
-            label="How Much Did They Enjoy it?"
-        />
-
-    </Fragment>
+            <IntensitySelector
+                id='trainer.participantHappiness'
+                handleSelect={handleChange('1')}
+                label="How happy was the participant with today’s program?"
+            />
+        </div>
     );
 
 }

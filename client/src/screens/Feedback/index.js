@@ -1,12 +1,8 @@
 //@flow
 import React, { Component, Fragment } from 'react'
-import { FilterList } from '../../components/FilterList'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './styles.scss'
-import { EngagmentSelector } from '../../components/EngagementSelector';
-import { Formik } from 'formik';
-import { FeedbackCard } from '../../components/FeedbackCard';
 import { FeedbackFormRender } from './FeedbackFormRender';
 
 
@@ -48,8 +44,8 @@ class FeedbackScreen extends Component {
   }
 
   handleSelect = (data) => {
-    const { 
-      id, 
+    const {
+      id,
       value,
       selectedID
     } = data
