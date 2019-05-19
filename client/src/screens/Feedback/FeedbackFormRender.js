@@ -127,10 +127,15 @@ export function FeedbackFormRender({
                         isMulti
                         options={
                             values.participants.length < 1
-                                ? users.map(v => ({
-                                    label: v.name,
-                                    value: v,
-                                }))
+                                ? users
+                                    // TODO: remove client side filtering when participant GraphQL query is completed.
+                                    .filter(
+                                        ({ roles }) => roles.includes("participant")
+                                    )
+                                    .map(v => ({
+                                        label: v.name,
+                                        value: v,
+                                    }))
                                 : []
 
                         }

@@ -15,6 +15,7 @@ const FEEDBACK_QUERY = gql`
     users {
       id 
       name
+      roles
     }
   }
 `
