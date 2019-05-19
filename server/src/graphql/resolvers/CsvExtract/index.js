@@ -34,6 +34,7 @@ export default {
         "Assistance - Verbal",
         "Enjoyment",
         "Engagement",
+        "Comment",
       ].join(",") + "\n";
 
       const results =
@@ -49,6 +50,7 @@ export default {
             f.trainerFeedback.assistance ? f.trainerFeedback.assistance.verbal : "",
             f.trainerFeedback.enjoyment,
             f.trainerFeedback.engagement,
+            '"' + f.comment.replace('"', '""') + '"',
           ].join(',')
         )).join("\n");
 
