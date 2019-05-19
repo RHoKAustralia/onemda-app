@@ -45,7 +45,7 @@ export default {
             formatDate(f.createdAt),
             formatDate(f.updatedAt),
             users[f.trainerID] ? users[f.trainerID].name : "",
-            activities[f.activityID].name,
+            activities[f.activityID] ?  activities[f.activityID].name : "",
             f.trainerFeedback.assistance ? f.trainerFeedback.assistance.physical : "",
             f.trainerFeedback.assistance ? f.trainerFeedback.assistance.verbal : "",
             f.trainerFeedback.enjoyment,
