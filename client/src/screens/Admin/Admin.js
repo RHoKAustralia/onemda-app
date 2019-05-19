@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { CREATE_PARTICIPANT, VIEW_PARTICIPANTS } from "../../components/NavBar/routes";
 import { Link } from 'react-router-dom';
-import { withApollo } from 'react-apollo'
-import gql from 'graphql-tag'
+import { withApollo } from 'react-apollo';
+import gql from 'graphql-tag';
+import './styles.scss';
 
 const CSV_QUERY = gql`query{
   csvExtract
@@ -46,11 +47,13 @@ const updateDownloadContainer = (element) => {
 
 function AdminPage({ client }) {
   return (
-  <div>
-    <section id="createParticipant">
-      <h3>Create Participant</h3>
-      <Link to={CREATE_PARTICIPANT}>Create Partipant</Link>
-      <Link to={VIEW_PARTICIPANTS}>View participants</Link>
+  <div className="adminPage">
+    <section id="participantActions">
+      <h3>Participant Admin</h3>
+      <ul>
+        <li><Link to={CREATE_PARTICIPANT}>Create Partipant</Link></li>
+        <li><Link to={VIEW_PARTICIPANTS}>View participants</Link></li>
+      </ul>
     </section>
     <section id="export">
       <h3>Data Exporter</h3>

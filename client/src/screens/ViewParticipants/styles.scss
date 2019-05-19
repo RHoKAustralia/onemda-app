@@ -1,4 +1,7 @@
 .feedback_container {
-  margin: 0.5rem;
-  border: 1px solid;
+  padding: 1rem 0;
+}
+
+.feedback_container:not(:last-child) {
+  border-bottom: 1px solid #cccccc;
 }
