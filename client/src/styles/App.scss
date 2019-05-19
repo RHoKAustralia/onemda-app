@@ -31,13 +31,31 @@ label {
 }
 
 form {
-  max-width: 600px;
   display: block;
   margin: 0 auto;
   & > * {
     margin: 0.5em 0;
   }
-  input, button {
-    padding: 0.5em;
-  }
+}
+
+input {
+  padding: 0.7rem;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1em;
+}
+
+input:focus {
+  border: 1px solid #0E365D;
+}
+
+button {
+  padding: 0.7rem;
+  min-width: 120px;
+  border: none;
+  background-color: #0E365D;
+  color: #FFFFFF;
+  font-size: 1em;
+  border-radius: 5px;
 }
