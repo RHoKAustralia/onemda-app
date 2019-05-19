@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <div className="navbar">
         <NavLink to = {Routes.HOME} label = "Home"/>
-        <NavLink to = {Routes.SERVICES} label = "Services"/>
+        <NavLink to = {Routes.SERVICES} label = "Activities"/>
         <NavLink to = {Routes.FEEDBACK} label = "Feedback"/>
        {isAdmin && <NavLink to = {Routes.ADMIN} label = "Admin"/>}
     </div>

@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import Service from '../Service'
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import React, { Component } from 'react';
+import Service from '../Service';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import './styles.scss';
 
 const SERVICES_QUERY = gql`
   query activities {
@@ -22,9 +23,11 @@ class Services extends Component {
           const activities = data.activities
           return (
             <div className="services">
-              Activities
-              <div>Here is a list of all the activities Onemda offers</div>
-              {activities.map(activity => <Service key={activity.id} service={activity} />)}
+              <h3>Activities</h3>
+              <div className="services__preface">Here is a list of all the activities Onemda offers.</div>
+              <ul className="services__data">
+                {activities.map((activity, index) => <Service key={index} service={activity} />)}
+              </ul>
             </div>
           )
         }}
