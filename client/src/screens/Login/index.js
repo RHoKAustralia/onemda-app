@@ -12,14 +12,9 @@ const LOGIN_MUTATION = gql`
 
 class LoginScreen extends Component {
 
-  // constructor(props) {
-  //   super(props)
-  // }
-
   render() {
     return (
       <div>
-        Welcome to the login screen
         <ApolloConsumer>
           {client => (
             <Mutation
@@ -35,7 +30,6 @@ class LoginScreen extends Component {
                 if (error) {
                   return <p>There was an error</p>
                 }
-
                 return <LoginForm onLogin={login}></LoginForm>
               }}
             </Mutation>
