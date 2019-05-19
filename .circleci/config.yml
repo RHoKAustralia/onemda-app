@@ -38,7 +38,7 @@ jobs:
             echo "node_modules" >> .gitignore
             git add .
             git commit -m "bad practices"
-            git push https://heroku:$NODE_APP_HEROKU_API_KEY@git.heroku.com/$NODE_APP_HEROKU_APP_NAME.git --force
+            git push -u https://heroku:$NODE_APP_HEROKU_API_KEY@git.heroku.com/$NODE_APP_HEROKU_APP_NAME.git master --force
 
 workflows:
   build-test-deploy-server:
