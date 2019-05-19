@@ -16,6 +16,7 @@ export default `
   type Query {
     user(id: String!): User
     users: [User]
+    participants: [User]
     hello: String
   }
   type Mutation {
