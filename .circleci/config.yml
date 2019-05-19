@@ -92,6 +92,6 @@ workflows:
       - deploy-client:
           requires:
             - build-client
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
