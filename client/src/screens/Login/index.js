@@ -22,7 +22,7 @@ class LoginScreen extends Component {
               onCompleted={({ login }) => {
                 localStorage.setItem('token', login)
                 client.writeData({ data: { isLoggedIn: true } })
-                this.props.history.push('/services')
+                this.props.history.push('/activities')
               }}
             >
               {(login, { loading, error }) => {
