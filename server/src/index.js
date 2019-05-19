@@ -22,7 +22,7 @@ const auth = jwt({
 
 app.use(
   "/graphql",
-  cors(),
+  cors('*'),
   bodyParser.json(),
   auth,
   expressGraphQL(req => ({
