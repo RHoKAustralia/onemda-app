@@ -1,5 +1,5 @@
 //@flow
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './styles.scss'
@@ -40,7 +40,7 @@ const CREATE_FEEDBACK_MUTATION = gql`
   }
 `
 
-export default function ({ }) {
+export default function () {
 
   return (<Query query={FEEDBACK_QUERY}>
     {({ error, loading, data }) => {

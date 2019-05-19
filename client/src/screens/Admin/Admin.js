@@ -37,6 +37,5 @@ export function AdminPage() {
     </section>
   </div>
   );
-
 }
 

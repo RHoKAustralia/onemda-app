@@ -5,22 +5,22 @@ import FeedbackScreen from '../screens/Feedback'
 import NavBar from './NavBar'
 import '../styles/App.scss'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import * as Routes from "./NavBar/routes"; 
+import * as Routes from "./NavBar/routes";
 import { AdminPage } from '../screens/Admin/Admin';
-import { CreateParticipant } from '../screens/CreateParticipant/CreateParticipant';
+//import { CreateParticipant } from '../screens/CreateParticipant/CreateParticipant';
 import { CreateParticipantGqlWrapper } from '../screens/CreateParticipant/CreateParticipantGqlWrapper';
 class App extends Component {
   render() {
     return (
       <main>
-        <NavBar/>
+        <NavBar />
         <Switch>
           <Route exact path={Routes.HOME} component={LoginScreen} />
-          <Route exact path={Routes.LOGIN} component={LoginScreen} />  
+          <Route exact path={Routes.LOGIN} component={LoginScreen} />
           <Route exact path={Routes.SERVICES} component={Services} />
           <Route exact path={Routes.FEEDBACK} component={FeedbackScreen} />
-          <Route exact path = {Routes.ADMIN} component = {AdminPage}/>
-          <Route exact path = {Routes.CREATE_PARTICIPANT} component = {CreateParticipantGqlWrapper}/>
+          <Route exact path={Routes.ADMIN} component={AdminPage} />
+          <Route exact path={Routes.CREATE_PARTICIPANT} component={CreateParticipantGqlWrapper} />
 
 
         </Switch>

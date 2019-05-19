@@ -31,7 +31,7 @@ const USER_TYPES = [
     }
 ]
 
-export function CreateParticipant({ }) {
+export function CreateParticipant() {
 
     return (<div>
 
@@ -58,7 +58,7 @@ export function CreateParticipant({ }) {
             }) => {
                 return (
                     <form
-                        onSubmit = {handleSubmit}
+                        onSubmit={handleSubmit}
                         style={{
                             display: "flex",
                             flexFlow: "column nowrap",
@@ -68,7 +68,7 @@ export function CreateParticipant({ }) {
                     >
                         <Select
                             options={USER_TYPES}
-                            onChange={v =>setFieldValue("userType", v)
+                            onChange={v => setFieldValue("userType", v)
                             }
                             id="userType"
                         />
