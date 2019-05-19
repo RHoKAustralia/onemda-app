@@ -7,7 +7,6 @@ import '../styles/App.scss'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import * as Routes from "./NavBar/routes"; 
 import { AdminPage } from '../screens/Admin/Admin';
-import { CreateParticipant } from '../screens/CreateParticipant/CreateParticipant';
 import { CreateParticipantGqlWrapper } from '../screens/CreateParticipant/CreateParticipantGqlWrapper';
 class App extends Component {
   render() {

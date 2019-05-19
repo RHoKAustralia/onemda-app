@@ -11,11 +11,6 @@ const LOGIN_MUTATION = gql`
 `
 
 class LoginScreen extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>
