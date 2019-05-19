@@ -48,7 +48,7 @@ const feedbackMutationVariablesFromParticipantFeedback = ({
     trainerFeedback: {
         engagement: participantEnjoyment,
         enjoyment: participantEngagement,
-        assistance: null,
+        assistance: {},
         //   assistance: { // TODO: assistance questions
         //     verbal: "Low",
         //     physical: "None",
@@ -70,12 +70,12 @@ export function FeedbackFormRender({
             onSubmit={(values, formikBag) => {
                 // TODO: rename variables related to feedback to be way less ambiguous.
                 let { activity, participants, feedback: rawParticipantFeedbacks } = values
-                //Values from form come in here. 
+                //Values from form come in here.
 
-                //NB. there's still a question of matching the correct IDs to the form 
-                //Below. 
+                //NB. there's still a question of matching the correct IDs to the form
+                //Below.
 
-                // Mutate graphql here. 
+                // Mutate graphql here.
                 let participantFeedbacks = participants.map(participant => ({ participant: participant, feedback: rawParticipantFeedbacks[participant.id] }))
 
                 //TODO: validation elsewhere!
