@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntensitySelector } from './IntensitySelector';
+import { FeedbackRatingSelector } from './FeedbackRatingSelector';
 
 export function FeedbackCard({
     participant,
@@ -15,7 +15,7 @@ export function FeedbackCard({
             <div className="feedback-card__participant-name">{participant.name || participant.email || "John Doe"}</div>
             <div className="question-group">
                 <div className="question-group__title"> Participant Question (Optional)</div>
-                <IntensitySelector
+                <FeedbackRatingSelector
                     id={`${inputIdPrefix}.participant.enjoyment`}
                     handleSelect={handleChange(`${inputIdPrefix}.participant.enjoyment`)}
                     label="How happy were you with today’s program? "
@@ -23,13 +23,13 @@ export function FeedbackCard({
             </div>
             <div className="question-group">
                 <div className="question-group__title">Trainer Questions</div>
-                <IntensitySelector
+                <FeedbackRatingSelector
                     id={`${inputIdPrefix}.trainer.participantEnjoyment`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEnjoyment`)}
                     label="How engaged was the participant in the program?"
                 />
 
-                <IntensitySelector
+                <FeedbackRatingSelector
                     id={`${inputIdPrefix}.trainer.participantEngagement`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEngagement`)}
                     label="How happy was the participant with today’s program?"

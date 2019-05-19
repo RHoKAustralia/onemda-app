@@ -1,14 +1,13 @@
 import React from "react";
 import SelectableButtonGroup from "../common/SelectableButtonGroup";
 
-const Intensity = Object.freeze({
-    VeryLow: 'Not at all',
-    Low: 'Not so',
-    Average: 'Somewhat',
-    High: 'Very',
-    VeryHigh: 'Extremely',
+const FeedbackRating = Object.freeze({
+    Low: 'Low',
+    Minimal: 'Minimal',
+    Average: 'Average',
+    High: 'High',
 })
-export function IntensitySelector({
+export function FeedbackRatingSelector({
     id,
     handleSelect,
     label
@@ -18,6 +17,6 @@ export function IntensitySelector({
         <SelectableButtonGroup
             id={id}
             handleSelect={handleSelect}
-            values={[Intensity.VeryLow, Intensity.Low, Intensity.Average, Intensity.High, Intensity.VeryHigh]} />
+            values={[FeedbackRating.Low, FeedbackRating.Minimal, FeedbackRating.Average, FeedbackRating.High]} />
     </div>
 }
