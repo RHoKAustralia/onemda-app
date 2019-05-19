@@ -64,7 +64,7 @@ export default {
         username,
         name,
         email,
-        encryptedPassword,
+        password: encryptedPassword,
         roles,
         stream
       });
