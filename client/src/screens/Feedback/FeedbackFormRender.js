@@ -32,13 +32,21 @@ const feedbackMutationVariablesFromParticipantFeedback = ({
             },
         },
         trainer: {
-            participantEnjoyment: {
+            participantEnjoyment: { //TODO: refactor onchange to set value directly to avoid extracting here.
                 value: participantEnjoyment
             },
             participantEngagement: {
                 value: participantEngagement
             },
             comment,
+            assistance: {
+                physical: {
+                    value: physicalAssistance,
+                },
+                verbal: {
+                    value: verbalAssistance,
+                },
+            }
         },
     }
 }) => ({
@@ -48,11 +56,10 @@ const feedbackMutationVariablesFromParticipantFeedback = ({
     trainerFeedback: {
         engagement: participantEnjoyment,
         enjoyment: participantEngagement,
-        assistance: {},
-        //   assistance: { // TODO: assistance questions
-        //     verbal: "Low",
-        //     physical: "None",
-        //   }
+        assistance: {
+            physical: physicalAssistance,
+            verbal: verbalAssistance,
+        },
     }
 })
 
