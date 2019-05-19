@@ -91,10 +91,15 @@ export function FeedbackFormRender({
                     <div>Participants</div>
                     <FilterList
                         isMulti
-                        options={users.map(v => ({
-                            label: v.email,
-                            value: v,
-                        }))}
+                        options={
+                            values.participants.length < 1
+                                ? users.map(v => ({
+                                    label: v.email,
+                                    value: v,
+                                }))
+                                : []
+
+                        }
                         handleChange={ourHandleChange('participants')} />
 
                     <div>
