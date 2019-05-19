@@ -26,13 +26,13 @@ export function FeedbackCard({
                 <FeedbackRatingSelector
                     id={`${inputIdPrefix}.trainer.participantEnjoyment`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEnjoyment`)}
-                    label="How engaged was the participant in the program?"
+                    label="What level of engagement did the participant show in the program?"
                 />
 
                 <FeedbackRatingSelector
                     id={`${inputIdPrefix}.trainer.participantEngagement`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEngagement`)}
-                    label="How happy was the participant with today’s program?"
+                    label="What level of happiness did the participant show with today’s program?"
                 />
                 <div className="question-group__label">Comments (Optional)</div>
                 {/* TODO: Debug why comment state is not updating. */}
