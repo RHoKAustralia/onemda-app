@@ -23,7 +23,6 @@ const exportData = (client) => {
 const fetchCsv = (client) => {
   return client.query({ query: CSV_QUERY })
     .then(result => {
-      console.log(result.data.csvExtract);
       return result.data.csvExtract;
     });
 }
