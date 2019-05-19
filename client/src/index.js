@@ -18,7 +18,7 @@ const headers = token ? {
 } : {}
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000/graphql',
   headers
 })
 

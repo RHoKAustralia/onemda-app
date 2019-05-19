@@ -6,3 +6,4 @@ logs
 *.log
 /coverage
 server/dist
+client/build
