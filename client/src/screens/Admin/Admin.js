@@ -1,29 +1,52 @@
-import React from 'react';
+import React from 'react'
 import { CREATE_PARTICIPANT } from "../../components/NavBar/routes";
 import { Link } from 'react-router-dom';
+import { withApollo } from 'react-apollo'
+import gql from 'graphql-tag'
 
-const exportData = () => {
-  console.log('export');
-  const currentDate = new Date().toISOString();
+const CSV_QUERY = gql`query{
+  csvExtract
+}`;
 
+const exportData = (client) => {
   // Fetch data from graphql endpoint, then add headers and export.
-  const csvString = '"Participant","Stream","Date Created","Date Updated","Trainer","Activity","Engagement"\n';
+  fetchCsv(client)
+    .then(csvString => {
+      const file = new Blob([csvString], {type: 'text/csv'});
+      appendDownloadLink(file);
+    })
+    .catch(error => {
+      console.error("Error fetching CSV.")
+    });
+}
 
-  const file = new Blob([csvString], {type: 'text/csv'});
+const fetchCsv = (client) => {
+  return client.query({ query: CSV_QUERY })
+    .then(result => {
+      console.log(result.data.csvExtract);
+      return result.data.csvExtract;
+    });
+}
 
+const appendDownloadLink = (file) => {
   let tempLink = document.createElement('a');
-  tempLink.setAttribute('href', URL.createObjectURL(file));
+  const currentDate = new Date().toISOString();
   tempLink.setAttribute('download', `export-${currentDate}.csv`);
+  tempLink.setAttribute('href', URL.createObjectURL(file));
   tempLink.textContent = 'Download';
 
+  updateDownloadContainer(tempLink);
+}
+
+const updateDownloadContainer = (element) => {
   const downloadContainer = document.getElementById('downloadContainer');
   if (downloadContainer.firstChild) {
     downloadContainer.firstChild.remove();
   }
-  downloadContainer.appendChild(tempLink);
+  downloadContainer.appendChild(element);
 }
 
-export function AdminPage() {
+function AdminPage({ client }) {
   return (
   <div>
     <section id="createParticipant">
@@ -32,11 +55,12 @@ export function AdminPage() {
     </section>
     <section id="export">
       <h3>Data Exporter</h3>
-      <button onClick={ exportData }>Generate Export</button>
+      <button onClick={ () => exportData(client) }>Generate Export</button>
       <div id="downloadContainer"></div>
     </section>
   </div>
   );
-
 }
+
+export default withApollo(AdminPage);
 
