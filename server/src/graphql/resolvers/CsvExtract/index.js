@@ -38,21 +38,26 @@ export default {
       ].join(",") + "\n";
 
       const results =
-        headerRow
-        + _.map(feedback, f => ([
-            users[f.participantID] ? users[f.participantID].name : "",
-            "",
-            formatDate(f.createdAt),
-            formatDate(f.updatedAt),
-            users[f.trainerID] ? users[f.trainerID].name : "",
-            activities[f.activityID] ?  activities[f.activityID].name : "",
-            f.trainerFeedback.assistance ? f.trainerFeedback.assistance.physical : "",
-            f.trainerFeedback.assistance ? f.trainerFeedback.assistance.verbal : "",
-            f.trainerFeedback.enjoyment,
-            f.trainerFeedback.engagement,
-            '"' + f.comment.replace('"', '""') + '"',
-          ].join(',')
-        )).join("\n");
+        headerRow +
+        _.map(feedback, f => {
+          const comment = f.comment && f.comment.replace('"', '""');
+          const result = ([
+              users[f.participantID] ? users[f.participantID].name : "",
+              "",
+              formatDate(f.createdAt),
+              formatDate(f.updatedAt),
+              users[f.trainerID] ? users[f.trainerID].name : "",
+              activities[f.activityID] ? activities[f.activityID].name : "",
+              f.trainerFeedback.assistance ? f.trainerFeedback.assistance.physical : "",
+              f.trainerFeedback.assistance ? f.trainerFeedback.assistance.verbal : "",
+              f.trainerFeedback.enjoyment,
+              f.trainerFeedback.engagement,
+              '"' + comment + '"',
+            ].join(',')
+          );
+
+        return result;
+        }).join("\n");
 
       return results;
     },
