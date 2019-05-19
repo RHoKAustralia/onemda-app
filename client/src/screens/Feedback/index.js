@@ -9,6 +9,7 @@ import { FeedbackFormRender } from './FeedbackFormRender';
 const FEEDBACK_QUERY = gql`
   query activities {
     activities {
+      id
       name
     }
     users {
@@ -19,25 +20,26 @@ const FEEDBACK_QUERY = gql`
 `
 
 const CREATE_FEEDBACK_MUTATION = gql`
-  mutation createFeedback(
-    $activityID: String!,
-    $trainerID: String!,
-    $participantID: String!,
-    $participantFeedback: String!,
-    $trainerFeedback: [TrainerFeedbackInput]!,
-    $comment: String!
+  
+mutation createFeedback(
+  $activityID: String!
+  $trainerID: String!
+  $participantID: String!
+  $participantFeedback: FeedbackRating!
+  $trainerFeedback: TrainerFeedbackInput!
+  $comment: String
+) {
+  createFeedback(
+   activityID: $activityID,
+   trainerID: $trainerID,
+   participantID: $participantID,
+   participantFeedback: $participantFeedback,
+   trainerFeedback: $trainerFeedback,
+   comment: $comment
   ) {
-    createFeedback(
-     activityID: $activityID,
-     trainerID: $trainerID,
-     participantID: $participantID,
-     participantFeedback: $participantFeedback,
-     trainerFeedback: $trainerFeedback,
-     comment: $comment
-    ) {
-      id
-    }
+    id
   }
+}
 `
 
 export default function ({ }) {
@@ -69,7 +71,6 @@ export default function ({ }) {
                 activities={activities}
                 users={users}
                 initialValues={{
-                  activities: null,
                   participants: [],
                   feedback: {}
                 }} />

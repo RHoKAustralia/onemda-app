@@ -14,58 +14,84 @@ const FeedbackSchema = Yup.object().shape({
     activity: Yup.object().required('Required'),
     feedback: {
         participant: {
-            happiness: Yup.object().required('Required'),
+            enjoyment: Yup.object().required('Required'),
         },
         trainer: {
             participantEngagement: Yup.object().required('Required'),
-            participantHappiness: Yup.object().required('Required'),
+            participantEnjoyment: Yup.object().required('Required'),
         },
     },
 });
+
+const feedbackMutationVariablesFromParticipantFeedback = ({
+    participant,
+    feedback: {
+        participant: {
+            enjoyment: {
+                value: participantFeedbackEnjoyment
+            },
+        },
+        trainer: {
+            participantEnjoyment: {
+                value: participantEnjoyment
+            },
+            participantEngagement: {
+                value: participantEngagement
+            },
+            comment,
+        },
+    }
+}) => ({
+    participantID: participant.id,
+    participantFeedback: participantFeedbackEnjoyment,
+    comment: comment,
+    trainerFeedback: {
+        engagement: participantEnjoyment,
+        enjoyment: participantEngagement,
+        assistance: null,
+        //   assistance: { // TODO: assistance questions
+        //     verbal: "Low",
+        //     physical: "None",
+        //   }
+    }
+})
 
 
 export function FeedbackFormRender({
     activities,
     users,
-    initialValues
+    feedback,
+    initialValues,
 }) {
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={FeedbackSchema}
             onSubmit={(values, formikBag) => {
-                let { activity, participants, feedback } = values
-                console.log(values)
+                // TODO: rename variables related to feedback to be way less ambiguous.
+                let { activity, participants, feedback: rawParticipantFeedbacks } = values
                 //Values from form come in here. 
 
                 //NB. there's still a question of matching the correct IDs to the form 
                 //Below. 
 
                 // Mutate graphql here. 
-                let participantFeedback = participants.map(participant => ({ participant: participant, feedback: feedback[participant.id] }))
-                console.log(participantFeedback)
+                let participantFeedbacks = participants.map(participant => ({ participant: participant, feedback: rawParticipantFeedbacks[participant.id] }))
 
-                // TODO: update with actual mutation
+                //TODO: validation elsewhere!
+                let participantFeedbackMutationVariables = feedbackMutationVariablesFromParticipantFeedback(participantFeedbacks[0])
 
-                // feedback({
-                //     variables:
-                //     {
-                //         activityID: values.activity.id,
-                //         trainerID: "5cd2cace363cfe4bd9ef981b",
-                //         // participantID: values.user.id,
-                //         // TODO: use participant's IDs
-                //         participantFeedback: "2",
-
-                //         //Still need to get the trainer feedback. 
-
-                //         comment: values.comment
-                //     }
-                // })
+                feedback({
+                    variables: {
+                        activityID: activity.id,
+                        trainerID: "5cd2cace363cfe4bd9ef981b", // TODO: extract from JWT token or `me` query?
+                        ...participantFeedbackMutationVariables,
+                    }
+                });
             }}
         >{({
             values,
             errors,
-            handleChange,
             handleSubmit,
             isValid,
 
@@ -75,6 +101,8 @@ export function FeedbackFormRender({
         }) => {
 
             const ourHandleChange = (id) => (value) => setFieldValue(id, value);
+
+            console.log(values);
 
             return (
                 <form onSubmit={handleSubmit}>
