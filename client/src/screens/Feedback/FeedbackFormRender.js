@@ -99,7 +99,9 @@ export function FeedbackFormRender({
             /* and other goodies */
         }) => {
 
-            const ourHandleChange = (id) => (value) => setFieldValue(id, value);
+            const ourHandleChange = (id) => (value) => {
+                setFieldValue(id, value);
+            }
 
             console.log(values);
 

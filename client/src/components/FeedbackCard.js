@@ -39,7 +39,7 @@ export function FeedbackCard({
                 <textarea
                     className="question-group__comment"
                     id={`${inputIdPrefix}.trainer.comment`}
-                    onChange={handleChange} />
+                    onChange={(e) => handleChange(`${inputIdPrefix}.trainer.comment`)(e.target.value)} />
             </div>
         </div>
     );
