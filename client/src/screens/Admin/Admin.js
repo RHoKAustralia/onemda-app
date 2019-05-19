@@ -1,5 +1,5 @@
 import React from 'react';
-import { CREATE_PARTICIPANT } from "../../components/NavBar/routes";
+import { CREATE_PARTICIPANT, VIEW_PARTICIPANTS } from "../../components/NavBar/routes";
 import { Link } from 'react-router-dom';
 
 const exportData = () => {
@@ -8,6 +8,13 @@ const exportData = () => {
 
   // Fetch data from graphql endpoint, then add headers and export.
   const csvString = '"Participant","Stream","Date Created","Date Updated","Trainer","Activity","Engagement"\n';
+
+    return (<div>        
+        <Link to = {CREATE_PARTICIPANT}>Create Partipant</Link>
+        <Link to = {VIEW_PARTICIPANTS}>View participants</Link>
+        
+    </div>
+        );
 
   const file = new Blob([csvString], {type: 'text/csv'});
 
