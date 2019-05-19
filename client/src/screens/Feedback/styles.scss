@@ -1,6 +1,11 @@
 .feedback_form {
   max-width: 800px;
   margin: 0 auto;
+
+  &__title{
+    font-size: 2em;
+    font-weight: bolder;
+  }
 }
 
 .feedback-card {
