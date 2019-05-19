@@ -57,11 +57,10 @@ export default function () {
             console.log('complete')
           }}
         >
-          {(feedback, { loading, error }) => {
-            if (error) {
-              console.log(error)
-              console.log(error)
-            }
+          {(feedback, { loading, error, data }) => {
+            if (error) return <div className="notification">Error Occurred</div>
+            if (loading) return <div className="notification">Submittting...</div>
+            if (data) return <div className="notification">Submitted</div>
 
             return (
               <FeedbackFormRender
