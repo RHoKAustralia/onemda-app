@@ -4,9 +4,8 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const SERVICES_QUERY = gql`
-  query services {
-    services {
-      id
+  query activities {
+    activities {
       name
     }
   }
@@ -20,11 +19,12 @@ class Services extends Component {
           if (loading) return <div>Fetching data...</div>
           if (error) return <div>Error</div>
 
-          const services = data.services
+          const activities = data.activities
           return (
             <div className="services">
-              Services
-              {services.map(service => <Service key={service.id} service={service} />)}
+              Activities
+              <div>Here is a list of all the activities Onemda offers</div>
+              {activities.map(activity => <Service key={activity.id} service={activity} />)}
             </div>
           )
         }}
