@@ -31,7 +31,7 @@ const USER_TYPES = [
     }
 ]
 
-export function CreateParticipant({ }) {
+export function CreateParticipant() {
 
     return (<div>
 

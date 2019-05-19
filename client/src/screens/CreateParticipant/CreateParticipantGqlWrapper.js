@@ -25,7 +25,7 @@ mutation createUser(
     }
   }`;
 
-export function CreateParticipantGqlWrapper({ }) {
+export function CreateParticipantGqlWrapper() {
 
     return (<Query query={ROLES_QUERY}>
         {({ error, loading, data }) => {
