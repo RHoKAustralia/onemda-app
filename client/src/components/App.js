@@ -6,8 +6,7 @@ import NavBar from './NavBar'
 import '../styles/App.scss'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import * as Routes from "./NavBar/routes";
-import { AdminPage } from '../screens/Admin/Admin';
-//import { CreateParticipant } from '../screens/CreateParticipant/CreateParticipant';
+import AdminPage from '../screens/Admin/Admin';
 import { CreateParticipantGqlWrapper } from '../screens/CreateParticipant/CreateParticipantGqlWrapper';
 import ViewParticipants from '../screens/ViewParticipants'
 class App extends Component {

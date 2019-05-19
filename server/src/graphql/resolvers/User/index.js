@@ -5,11 +5,13 @@ export async function isAdmin(user) {
   if (!user) {
     return false
   }
+
   const eUser = await User.findById(user.id)
-  if (!eUser.roles.includes('admin')) {
-    return false
+  if (eUser.roles.includes('admin')) {
+    return true
   }
-  return true
+
+  return false
 }
 
 export default {

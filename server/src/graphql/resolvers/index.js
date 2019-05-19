@@ -1,8 +1,17 @@
-import User from "./User/";
+import Activity from "./Activity";
+import Authentication from "./Authentication";
+import CsvExtract from "./CsvExtract";
+import Feedback from "./Feedback";
 import Service from "./Service/";
-import Authentication from "./Authentication"
-import Activity from "./Activity"
-import Feedback from "./Feedback"
+import User from "./User/";
 
-const resolvers = [User, Service, Authentication, Activity, Feedback];
+const resolvers = [
+  Activity,
+  Authentication,
+  CsvExtract,
+  Feedback,
+  Service,
+  User,
+];
+
 export default resolvers
