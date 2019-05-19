@@ -1,5 +1,6 @@
 // The User schema.
 import User from "../../../models/User";
+const bcrypt = require('bcrypt');
 
 export async function isAdmin(user) {
   if (!user) {
@@ -55,11 +56,13 @@ export default {
         throw Error('You must be a logged in admin to create a user')
       }
 
+      const encryptedPassword = bcrypt.hashSync(password, 10)
+
       const newUser = new User({
         username,
         name,
         email,
-        password,
+        encryptedPassword,
         roles,
         stream
       });

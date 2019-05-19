@@ -40,9 +40,16 @@ export default {
         { expiresIn: '1d' }
       )
     },
-    async signup(_, { username, password, name }) {
+    async signup(_, { username, password, name, email, roles, stream }) {
       const ePassword = bcrypt.hashSync(password, 10)
-      const newUser = new User({ username, password: ePassword, name })
+      const newUser = new User({
+        username,
+        password: ePassword,
+        name,
+        email,
+        roles,
+        stream
+      })
 
       try {
         const savedUser = await newUser.save()
