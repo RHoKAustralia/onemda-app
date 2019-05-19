@@ -1,0 +1,50 @@
+defaults: &defaults #working_directory: ./circleci
+  docker:
+    - image: circleci/node:11
+version: 2.1
+jobs:
+  build-server:
+    <<: *defaults
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "server/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: cd server && yarn install --frozen-lockfile
+      # Build with babel and put static files to dist folder
+      - run:
+          name: Build with babel
+          command: cd server && node_modules/.bin/babel src --out-dir dist
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "server/yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+  deploy-server:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          command: |
+            rm server/package-lock.json
+            git add server/package-lock.json
+            git config user.email "dummy@dummy.com"
+            git config user.name "dummy dummy"
+            git commit -m "Remove package-lock.json"
+            git push https://heroku:$NODE_APP_HEROKU_API_KEY@git.heroku.com/$NODE_APP_HEROKU_APP_NAME.git `git subtree split --prefix server master`:master --force
+
+workflows:
+  build-test-deploy-server:
+    jobs:
+      - build-server
+      - deploy-server:
+          requires:
+            - build-server
+          filters:
+            branches:
+              only: master
