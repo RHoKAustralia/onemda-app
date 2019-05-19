@@ -84,7 +84,6 @@ export function FeedbackFormRender({
                 feedback({
                     variables: {
                         activityID: activity.id,
-                        trainerID: "5cd2cace363cfe4bd9ef981b", // TODO: extract from JWT token or `me` query?
                         ...participantFeedbackMutationVariables,
                     }
                 });
@@ -122,7 +121,7 @@ export function FeedbackFormRender({
                         options={
                             values.participants.length < 1
                                 ? users.map(v => ({
-                                    label: v.email,
+                                    label: v.name,
                                     value: v,
                                 }))
                                 : []

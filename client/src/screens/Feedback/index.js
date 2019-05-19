@@ -14,16 +14,14 @@ const FEEDBACK_QUERY = gql`
     }
     users {
       id 
-      email
+      name
     }
   }
 `
 
 const CREATE_FEEDBACK_MUTATION = gql`
-  
 mutation createFeedback(
   $activityID: String!
-  $trainerID: String!
   $participantID: String!
   $participantFeedback: FeedbackRating!
   $trainerFeedback: TrainerFeedbackInput!
@@ -31,7 +29,6 @@ mutation createFeedback(
 ) {
   createFeedback(
    activityID: $activityID,
-   trainerID: $trainerID,
    participantID: $participantID,
    participantFeedback: $participantFeedback,
    trainerFeedback: $trainerFeedback,
