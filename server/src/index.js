@@ -20,9 +20,10 @@ const auth = jwt({
   credentialsRequired: false
 })
 
+app.use(cors('*'));
+
 app.use(
   "/graphql",
-  cors('*'),
   bodyParser.json(),
   auth,
   expressGraphQL(req => ({
