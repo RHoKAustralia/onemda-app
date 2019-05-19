@@ -2,8 +2,9 @@
   text-align: center;
 }
 
-body {
-  background-color: #e0e0e0;
+label {
+  color: #0E365D;
+  font-weight: 500;
 }
 
 .participantList__participants {
@@ -18,17 +19,22 @@ body {
 
 .content {
   background-color: #FFFFFF;
-  width: 80%;
-  height: 100vh;
+  width: 75%;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 2em;
+
+  a {
+    text-decoration: underline;
+    color: #0E365D;
+  }
 }
 
 form {
   max-width: 600px;
   display: block;
   margin: 0 auto;
-  &>* {
+  & > * {
     margin: 0.5em 0;
   }
   input, button {
