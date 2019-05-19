@@ -31,8 +31,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            rm server/package-lock.json
-            git add server/package-lock.json
+            test -f server/package-lock.json && rm server/package-lock.json && git add server/package-lock.json
             git config user.email "dummy@dummy.com"
             git config user.name "dummy dummy"
             git commit -m "Remove package-lock.json"
