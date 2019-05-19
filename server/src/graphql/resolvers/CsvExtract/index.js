@@ -9,7 +9,7 @@ import User from "../../../models/User";
 export default {
   Query: {
     async csvExtract(root, args, { user }) {
-      if (await !isAdmin(user)) {
+      if (!(await isAdmin(user))) {
         return "";
       }
 
@@ -51,8 +51,6 @@ export default {
             f.trainerFeedback.engagement,
           ].join(',')
         )).join("\n");
-
-          console.log(results);
 
       return results;
     },
