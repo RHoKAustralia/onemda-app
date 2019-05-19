@@ -31,11 +31,14 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            test -f server/package-lock.json && rm server/package-lock.json && git add server/package-lock.json
+            cd server
+            git init
             git config user.email "dummy@dummy.com"
             git config user.name "dummy dummy"
-            git commit -m "Remove package-lock.json"
-            git push https://heroku:$NODE_APP_HEROKU_API_KEY@git.heroku.com/$NODE_APP_HEROKU_APP_NAME.git `git subtree split --prefix server master`:master --force
+            echo "node_modules" >> .gitignore
+            git add .
+            git commit -m "bad practices"
+            git push https://heroku:$NODE_APP_HEROKU_API_KEY@git.heroku.com/$NODE_APP_HEROKU_APP_NAME.git --force
 
 workflows:
   build-test-deploy-server:
