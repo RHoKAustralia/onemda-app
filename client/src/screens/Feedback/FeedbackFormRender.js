@@ -4,57 +4,94 @@ import { FeedbackCard } from '../../components/FeedbackCard';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+// TODO: Yup schema validation - Only appears to be checking activity/participants has a value
 const FeedbackSchema = Yup.object().shape({
-    user: Yup.object().required('Required'),
+    participants: Yup
+        .array()
+        .of(
+            Yup.object().required('Required')
+        ).max(1),
     activity: Yup.object().required('Required'),
-    trainer: {
-        participantEngagement: Yup.object().required('Required'),
-        participantHappiness: Yup.object().required('Required'),
+    feedback: {
+        participant: {
+            enjoyment: Yup.object().required('Required'),
+        },
+        trainer: {
+            participantEngagement: Yup.object().required('Required'),
+            participantEnjoyment: Yup.object().required('Required'),
+        },
     },
 });
 
+const feedbackMutationVariablesFromParticipantFeedback = ({
+    participant,
+    feedback: {
+        participant: {
+            enjoyment: {
+                value: participantFeedbackEnjoyment
+            },
+        },
+        trainer: {
+            participantEnjoyment: {
+                value: participantEnjoyment
+            },
+            participantEngagement: {
+                value: participantEngagement
+            },
+            comment,
+        },
+    }
+}) => ({
+    participantID: participant.id,
+    participantFeedback: participantFeedbackEnjoyment,
+    comment: comment,
+    trainerFeedback: {
+        engagement: participantEnjoyment,
+        enjoyment: participantEngagement,
+        assistance: {},
+        //   assistance: { // TODO: assistance questions
+        //     verbal: "Low",
+        //     physical: "None",
+        //   }
+    }
+})
+
 
 export function FeedbackFormRender({
-    feedback,
     activities,
     users,
-    initialValues
+    feedback,
+    initialValues,
 }) {
-
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={FeedbackSchema}
             onSubmit={(values, formikBag) => {
-                console.log(values);
-                //Values from form come in here. 
+                // TODO: rename variables related to feedback to be way less ambiguous.
+                let { activity, participants, feedback: rawParticipantFeedbacks } = values
+                //Values from form come in here.
 
-                //NB. there's still a question of matching the correct IDs to the form 
-                //Below. 
+                //NB. there's still a question of matching the correct IDs to the form
+                //Below.
 
-                //Mutate graphql here. 
+                // Mutate graphql here.
+                let participantFeedbacks = participants.map(participant => ({ participant: participant, feedback: rawParticipantFeedbacks[participant.id] }))
+
+                //TODO: validation elsewhere!
+                let participantFeedbackMutationVariables = feedbackMutationVariablesFromParticipantFeedback(participantFeedbacks[0])
+
                 feedback({
-                    variables:
-                    {
-                        activityID: values.activity.id,
-                        trainerID: "5cd2cace363cfe4bd9ef981b",
-                        participantID: values.user.id,
-                        participantFeedback: "2",
-
-                        //Still need to get the trainer feedback. 
-
-                        comment: values.comment
+                    variables: {
+                        activityID: activity.id,
+                        ...participantFeedbackMutationVariables,
                     }
-                })
+                });
             }}
         >{({
             values,
             errors,
-            touched,
-            handleChange,
-            handleBlur,
             handleSubmit,
-            isSubmitting,
             isValid,
 
             setFieldValue,
@@ -66,6 +103,7 @@ export function FeedbackFormRender({
                 setFieldValue(id, value);
             }
 
+            console.log(values);
 
             return (
                 <form onSubmit={handleSubmit}>
@@ -79,20 +117,24 @@ export function FeedbackFormRender({
                     }))}
                         handleChange={ourHandleChange('activity')} />
 
-                    <div>Users</div>
-                    <FilterList options={users.map(v => ({
-                        label: v.email,
-                        value: v,
-                    }))} handleChange={ourHandleChange('user')} />
+                    <div>Participants</div>
+                    <FilterList
+                        isMulti
+                        options={
+                            values.participants.length < 1
+                                ? users.map(v => ({
+                                    label: v.name,
+                                    value: v,
+                                }))
+                                : []
 
-                    <FeedbackCard handleChange={ourHandleChange} />
+                        }
+                        handleChange={ourHandleChange('participants')} />
 
-                    <div>Comments</div>
-                    <input
-                        type='text'
-                        id="comment"
-                        value={values.comment}
-                        onChange={handleChange} />
+                    <div>
+                        {values.participants.map(participant => <FeedbackCard participant={participant} handleChange={ourHandleChange} />)}
+                    </div>
+
                     <button
                         disabled={!isValid}
                         type="submit"

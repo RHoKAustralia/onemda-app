@@ -18,7 +18,7 @@ const headers = token ? {
 } : {}
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000/graphql',
   headers
 })
 
@@ -39,7 +39,7 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </Router>
-  ,document.getElementById('root')
+  , document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

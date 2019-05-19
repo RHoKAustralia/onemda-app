@@ -1,5 +1,5 @@
 import React from 'react'
-import { CREATE_PARTICIPANT } from "../../components/NavBar/routes";
+import { CREATE_PARTICIPANT, VIEW_PARTICIPANTS } from "../../components/NavBar/routes";
 import { Link } from 'react-router-dom';
 import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -9,7 +9,6 @@ const CSV_QUERY = gql`query{
 }`;
 
 const exportData = (client) => {
-  // Fetch data from graphql endpoint, then add headers and export.
   fetchCsv(client)
     .then(csvString => {
       const file = new Blob([csvString], {type: 'text/csv'});
@@ -51,6 +50,7 @@ function AdminPage({ client }) {
     <section id="createParticipant">
       <h3>Create Participant</h3>
       <Link to={CREATE_PARTICIPANT}>Create Partipant</Link>
+      <Link to={VIEW_PARTICIPANTS}>View participants</Link>
     </section>
     <section id="export">
       <h3>Data Exporter</h3>

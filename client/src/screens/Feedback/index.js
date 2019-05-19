@@ -1,5 +1,5 @@
 //@flow
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import './styles.scss'
@@ -9,38 +9,37 @@ import { FeedbackFormRender } from './FeedbackFormRender';
 const FEEDBACK_QUERY = gql`
   query activities {
     activities {
+      id
       name
     }
     users {
       id 
-      email
+      name
     }
   }
 `
 
 const CREATE_FEEDBACK_MUTATION = gql`
-  mutation createFeedback(
-    $activityID: String!,
-    $trainerID: String!,
-    $participantID: String!,
-    $participantFeedback: String!,
-    $trainerFeedback: [TrainerFeedbackInput]!,
-    $comment: String!
+mutation createFeedback(
+  $activityID: String!
+  $participantID: String!
+  $participantFeedback: FeedbackRating!
+  $trainerFeedback: TrainerFeedbackInput!
+  $comment: String
+) {
+  createFeedback(
+   activityID: $activityID,
+   participantID: $participantID,
+   participantFeedback: $participantFeedback,
+   trainerFeedback: $trainerFeedback,
+   comment: $comment
   ) {
-    createFeedback(
-     activityID: $activityID,
-     trainerID: $trainerID,
-     participantID: $participantID,
-     participantFeedback: $participantFeedback,
-     trainerFeedback: $trainerFeedback,
-     comment: $comment
-    ) {
-      id
-    }
+    id
   }
+}
 `
 
-export default function ({ }) {
+export default function () {
 
   return (<Query query={FEEDBACK_QUERY}>
     {({ error, loading, data }) => {
@@ -68,7 +67,10 @@ export default function ({ }) {
                 feedback={feedback}
                 activities={activities}
                 users={users}
-                initialValues={{}} />
+                initialValues={{
+                  participants: [],
+                  feedback: {}
+                }} />
 
             )
           }}
