@@ -34,10 +34,9 @@ const USER_TYPES = [
 export function CreateParticipant() {
 
     return (<div>
-
         <Formik
             initialValues={{
-                //Initial values go here. 
+                //Initial values go here.
             }}
             validationSchema={CreateUserSchema}
             onSubmit={(values, formikBag) => {
@@ -62,10 +61,9 @@ export function CreateParticipant() {
                         style={{
                             display: "flex",
                             flexFlow: "column nowrap",
-                            maxWidth: 800,
-                            margin: "0 auto",
                         }}
                     >
+                        <h3>Create Participant</h3>
                         <Select
                             options={USER_TYPES}
                             onChange={v => setFieldValue("userType", v)
