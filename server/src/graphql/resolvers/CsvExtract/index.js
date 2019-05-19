@@ -39,14 +39,14 @@ export default {
       const results =
         headerRow
         + _.map(feedback, f => ([
-            users[f.participantID].name,
+            users[f.participantID] ? users[f.participantID].name : "",
             "",
             formatDate(f.createdAt),
             formatDate(f.updatedAt),
-            users[f.trainerID].name,
+            users[f.trainerID] ? users[f.trainerID].name : "",
             activities[f.activityID].name,
-            f.trainerFeedback.assistance.physical,
-            f.trainerFeedback.assistance.verbal,
+            f.trainerFeedback.assistance ? f.trainerFeedback.assistance.physical : "",
+            f.trainerFeedback.assistance ? f.trainerFeedback.assistance.verbal : "",
             f.trainerFeedback.enjoyment,
             f.trainerFeedback.engagement,
           ].join(',')
