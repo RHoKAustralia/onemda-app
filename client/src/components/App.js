@@ -14,16 +14,17 @@ class App extends Component {
     return (
       <main>
         <NavBar />
-        <Switch>
-          <Route exact path={Routes.HOME} component={LoginScreen} />
-          <Route exact path={Routes.LOGIN} component={LoginScreen} />
-          <Route exact path={Routes.SERVICES} component={Services} />
-          <Route exact path={Routes.FEEDBACK} component={FeedbackScreen} />
-          <Route exact path = {Routes.ADMIN} component = {AdminPage}/>
-          <Route exact path = {Routes.CREATE_PARTICIPANT} component = {CreateParticipantGqlWrapper}/>
-          <Route exact path = {Routes.VIEW_PARTICIPANTS} component = {ViewParticipants}/>
-
-        </Switch>
+        <div className="content">
+          <Switch>
+            <Route exact path={Routes.HOME} component={LoginScreen} />
+            <Route exact path={Routes.LOGIN} component={LoginScreen} />
+            <Route exact path={Routes.SERVICES} component={Services} />
+            <Route exact path={Routes.FEEDBACK} component={FeedbackScreen} />
+            <Route exact path = {Routes.ADMIN} component = {AdminPage}/>
+            <Route exact path = {Routes.CREATE_PARTICIPANT} component = {CreateParticipantGqlWrapper}/>
+            <Route exact path = {Routes.VIEW_PARTICIPANTS} component = {ViewParticipants}/>
+          </Switch>
+        </div>
       </main>
     )
   }
