@@ -1,4 +1,5 @@
 import React from 'react';
+import { AssistanceRatingSelector } from './AssistanceRatingSelector';
 import { FeedbackRatingSelector } from './FeedbackRatingSelector';
 
 export function FeedbackCard({
@@ -34,8 +35,23 @@ export function FeedbackCard({
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEngagement`)}
                     label="What level of happiness did the participant show with today’s program?"
                 />
+
+
+                <div className="question-group">
+                    <div className="question-group__title">Assistance Provided</div>
+                    <AssistanceRatingSelector
+                        id={`${inputIdPrefix}.trainer.assistance.physical`}
+                        handleSelect={handleChange(`${inputIdPrefix}.trainer.assistance.physical`)}
+                        label="How much physical assistance did the participant require?"
+                    />
+
+                    <AssistanceRatingSelector
+                        id={`${inputIdPrefix}.trainer.assistance.verbal`}
+                        handleSelect={handleChange(`${inputIdPrefix}.trainer.assistance.verbal`)}
+                        label="How much verbal prompting did they require to participate in the program?"
+                    />
+                </div>
                 <div className="question-group__label">Comments (Optional)</div>
-                {/* TODO: Debug why comment state is not updating. */}
                 <textarea
                     className="question-group__comment"
                     id={`${inputIdPrefix}.trainer.comment`}
