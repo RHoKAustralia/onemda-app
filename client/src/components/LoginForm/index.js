@@ -28,7 +28,7 @@ class LoginForm extends Component {
     return (
         <form className="login__form" onSubmit={(e) => this.submitForm(e)}>
           <span className="login__username">username <input type="text" onChange={(e) => this.onChangeUsername(e)}/></span>
-          <span className="login__password">password <input type="text" onChange={(e) => this.onChangePassword(e)}/></span>
+          <span className="login__password">password <input type="password" onChange={(e) => this.onChangePassword(e)}/></span>
           <button className="login__submit_button">Submit</button>
         </form>
     )
