@@ -21,6 +21,23 @@ export default {
         });
       });
     },
+    async participants (root, args, { user }) {
+      const isUserAdmin = await isAdmin(user)
+      if (!isUserAdmin) {
+        throw Error('You must be a logged in admin to create a user')
+      }
+
+      const users =  await new Promise((resolve, reject) => {
+        User.find({})
+          .populate()
+          .exec((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+      });
+      return users.filter(u => {
+        return u.roles.includes('participant')
+      })
+    },
     users: () => {
       return new Promise((resolve, reject) => {
         User.find({})
