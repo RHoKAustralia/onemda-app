@@ -12,9 +12,9 @@ const LOGIN_MUTATION = gql`
 
 class LoginScreen extends Component {
 
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   render() {
     return (
@@ -24,14 +24,14 @@ class LoginScreen extends Component {
           {client => (
             <Mutation
               mutation={LOGIN_MUTATION}
-              onCompleted={( { login }) => {
+              onCompleted={({ login }) => {
                 localStorage.setItem('token', login)
-                client.writeData({ data: { isLoggedIn: true }})
+                client.writeData({ data: { isLoggedIn: true } })
                 this.props.history.push('/services')
               }}
             >
-              {(login, {loading, error}) => {
-                if (loading) return <Loading/>
+              {(login, { loading, error }) => {
+                if (loading) return <Loading />
                 if (error) {
                   return <p>There was an error</p>
                 }

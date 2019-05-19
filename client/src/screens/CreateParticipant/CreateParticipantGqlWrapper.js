@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CreateParticipant } from "./CreateParticipant";
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -25,7 +25,7 @@ mutation createUser(
     }
   }`;
 
-export function CreateParticipantGqlWrapper({ }) {
+export function CreateParticipantGqlWrapper() {
 
     return (<Query query={ROLES_QUERY}>
         {({ error, loading, data }) => {
