@@ -114,9 +114,7 @@ export function FeedbackFormRender({
 
             return (
                 <form onSubmit={handleSubmit}>
-                    {JSON.stringify(errors)}\
-                    {JSON.stringify(isValid)}
-                    <p>Submit Feedback</p>
+                    <div className="feedback_form__title">Submit Feedback</div>
                     <div>Activities</div>
                     <FilterList options={activities.map(v => ({
                         label: v.name,
