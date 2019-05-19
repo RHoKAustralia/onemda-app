@@ -16,7 +16,7 @@ export function FeedbackCard({
             <div className="question-group">
                 <div className="question-group__title"> Participant Question (Optional)</div>
                 <IntensitySelector
-                    id='participant.happiness'
+                    id={`${inputIdPrefix}.participant.happiness`}
                     handleSelect={handleChange(`${inputIdPrefix}.participant.happiness`)}
                     label="How happy were you with today’s program? "
                 />
@@ -24,16 +24,21 @@ export function FeedbackCard({
             <div className="question-group">
                 <div className="question-group__title">Trainer Questions</div>
                 <IntensitySelector
-                    id='trainer.participantEngagement'
+                    id={`${inputIdPrefix}.trainer.participantHappiness`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantHappiness`)}
                     label="How engaged was the participant in the program?"
                 />
 
                 <IntensitySelector
-                    id='trainer.participantHappiness'
+                    id={`${inputIdPrefix}.trainer.participantEngagement`}
                     handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEngagement`)}
                     label="How happy was the participant with today’s program?"
                 />
+                <div className="question-group__label">Comments (Optional)</div>
+                <textarea
+                    className="question-group__comment"
+                    id={`${inputIdPrefix}.trainer.comment`}
+                    onChange={handleChange} />
             </div>
         </div>
     );

@@ -97,14 +97,10 @@ export function FeedbackFormRender({
                         }))}
                         handleChange={ourHandleChange('participants')} />
 
-                    {values.participants.map(participant => <FeedbackCard participant={participant} handleChange={ourHandleChange} />)}
+                    <div>
+                        {values.participants.map(participant => <FeedbackCard participant={participant} handleChange={ourHandleChange} />)}
+                    </div>
 
-                    <div>Comments</div>
-                    <input
-                        type='text'
-                        id="comment"
-                        value={values.comment}
-                        onChange={handleChange} />
                     <button
                         disabled={!isValid}
                         type="submit"

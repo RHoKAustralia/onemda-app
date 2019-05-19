@@ -14,7 +14,7 @@ export function IntensitySelector({
     label
 }) {
     return <div>
-        <strong> {label}</strong>
+        <div className="question-group__label">{label}</div>
         <SelectableButtonGroup
             id={id}
             handleSelect={handleSelect}
