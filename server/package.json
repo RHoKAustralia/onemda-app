@@ -6,7 +6,7 @@
   "scripts": {
     "seed": "babel-node bin/seed.js",
     "start": "node dist/index.js",
-    "start-dev": "nodemon --exec babel-node index.js",
+    "start-dev": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir dist"
   },
   "keywords": [],
