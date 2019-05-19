@@ -16,16 +16,16 @@ export function FeedbackCard({
             <div className="question-group">
                 <div className="question-group__title"> Participant Question (Optional)</div>
                 <IntensitySelector
-                    id={`${inputIdPrefix}.participant.happiness`}
-                    handleSelect={handleChange(`${inputIdPrefix}.participant.happiness`)}
+                    id={`${inputIdPrefix}.participant.enjoyment`}
+                    handleSelect={handleChange(`${inputIdPrefix}.participant.enjoyment`)}
                     label="How happy were you with today’s program? "
                 />
             </div>
             <div className="question-group">
                 <div className="question-group__title">Trainer Questions</div>
                 <IntensitySelector
-                    id={`${inputIdPrefix}.trainer.participantHappiness`}
-                    handleSelect={handleChange(`${inputIdPrefix}.trainer.participantHappiness`)}
+                    id={`${inputIdPrefix}.trainer.participantEnjoyment`}
+                    handleSelect={handleChange(`${inputIdPrefix}.trainer.participantEnjoyment`)}
                     label="How engaged was the participant in the program?"
                 />
 
@@ -35,6 +35,7 @@ export function FeedbackCard({
                     label="How happy was the participant with today’s program?"
                 />
                 <div className="question-group__label">Comments (Optional)</div>
+                {/* TODO: Debug why comment state is not updating. */}
                 <textarea
                     className="question-group__comment"
                     id={`${inputIdPrefix}.trainer.comment`}
