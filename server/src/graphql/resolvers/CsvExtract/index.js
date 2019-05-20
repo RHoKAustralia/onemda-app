@@ -1,15 +1,15 @@
 import _ from "lodash";
 
-import { isAdmin } from "../User/index";
+import { isUserWithRole } from "../User";
 
 import Activity from "../../../models/Activity";
 import Feedback from "../../../models/Feedback";
-import User from "../../../models/User";
+import User, { Role } from "../../../models/User";
 
 export default {
   Query: {
     async csvExtract(root, args, { user }) {
-      if (!(await isAdmin(user))) {
+      if (!(await isUserWithRole(user, Role.Admin))) {
         return "";
       }
 

@@ -1,5 +1,5 @@
 import Service from "../../../models/Service";
-import { isAdmin } from "../User/index"
+import { isUserWithRole } from "../User/index"
 
 export default {
   Query: {
@@ -15,7 +15,7 @@ export default {
   },
   Mutation: {
     async createService (root, { name }, { user }) {
-      const isUserAdmin = await isAdmin(user)
+      const isUserAdmin = await isUserWithRole(user, Role.Admin)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to create a user')
       }

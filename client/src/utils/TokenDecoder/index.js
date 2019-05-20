@@ -1,5 +1,5 @@
 export function decodeJwtPayload(jwt) {
-  const parts = jwt.split(".");
+  const parts = jwt ? jwt.split(".") : "";
   if (parts.length !== 3) {
     console.error("JWT token was invalid.")
     return "";
@@ -10,5 +10,5 @@ export function decodeJwtPayload(jwt) {
 
 export function getUserRoles(jwt) {
   const payload = decodeJwtPayload(jwt);
-  return payload.roles;
+  return payload.roles ? payload.roles : [];
 }

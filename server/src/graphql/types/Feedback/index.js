@@ -31,14 +31,17 @@ export default `
   type Feedback {
     id: String!
     activityID: String!
+    activityName: String
     trainerID: String!
+    trainerName: String
     participantID: String!
-    participantFeedback: FeedbackRating
+    participantName: String
+    participantFeedback: FeedbackRating!
     trainerFeedback: TrainerFeedback!
-    comment: String
+    comment: String!
   }
   type Query {
-    feedback: [Feedback!]
+    feedback: [Feedback]!
   }
   type Mutation {
     createFeedback(activityID: String!, participantID: String!, participantFeedback: FeedbackRating!, trainerFeedback: TrainerFeedbackInput!, comment: String): Feedback

@@ -40,7 +40,6 @@ export function CreateParticipant() {
             }}
             validationSchema={CreateUserSchema}
             onSubmit={(values, formikBag) => {
-                console.log(values);
             }}>{({
                 values,
                 errors,
