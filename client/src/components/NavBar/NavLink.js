@@ -8,8 +8,12 @@ export function NavLink({to, label }) {
         display: "inline-block", 
         margin: "1em", 
         padding: "1em", 
-    }} to ={to} >{label}</Link>
+    }}  onClick={(e) => this.props.onClick(e)} to ={to} >{label}</Link>
         );
 
+}
+
+NavLink.defaultProps = {
+    onClick: () => {}
 }
 

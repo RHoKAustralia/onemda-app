@@ -7,9 +7,12 @@ const VIEW_FEEDBACK_QUERY = gql`
   query feedback {
     feedback {
       activityID
+      activityName
       comment
       trainerID
+      trainerName
       participantID
+      participantName
       participantFeedback
       trainerFeedback {
         engagement
@@ -37,22 +40,29 @@ class ViewParticipants extends Component {
             const feedbackMarkup = feedback.map(feedback => (
               <div className="feedback_container">
                 <div>
-                  <label>Participant id:</label> <span>{feedback.participantID}</span>
+                  <span>{feedback.participantName}</span>
                 </div>
                 <div>
-                  <label>Activity id:</label> <span>{feedback.activityID}</span>
+                  <label>Activity Name:</label> <span>{feedback.activityName}</span>
                 </div>
                 <div>
-                  <label>Trainer id:</label> <span>{feedback.trainerID}</span>
-                </div>
-                <div>
-                  <label>Comment: </label> <span>{feedback.comment}</span>
+                  <label>Trainer Name:</label> <span>{feedback.trainerName}</span>
                 </div>
                 <div>
                   <label>Participant Feedback:</label> <span>{feedback.participantFeedback}</span>
                 </div>
                 <div>
-                  <label>Trainer Feedback:</label> <span>{feedback.trainerFeedback.engagement}</span>
+                  Trainer Feedback
+                  <div><label>Engagement:</label> <span>{feedback.trainerFeedback.engagement}</span></div>
+                  <div><label>Enjoyment:</label> <span>{feedback.trainerFeedback.enjoyment}</span></div>
+                  <div>
+                    Assistance
+                    <div><label>Physical:</label> <span>{feedback.trainerFeedback.assistance.physical}</span></div>
+                    <div><label>Verbal:</label> <span>{feedback.trainerFeedback.assistance.verbal}</span></div>
+                  </div>
+                </div>
+                <div>
+                  <label>Comment: </label> <span>{feedback.comment}</span>
                 </div>
               </div>
             ))

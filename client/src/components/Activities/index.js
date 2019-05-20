@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Service from '../Service';
+import ListItem from '../ListItem';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import './styles.scss';
 
 const SERVICES_QUERY = gql`
   query activities {
@@ -12,7 +11,7 @@ const SERVICES_QUERY = gql`
   }
 `
 
-class Services extends Component {
+class Activities extends Component {
   render() {
     return (
       <Query query={SERVICES_QUERY}>
@@ -24,10 +23,8 @@ class Services extends Component {
           return (
             <div className="services">
               <h3>Activities</h3>
-              <div className="services__preface">Here is a list of all the activities Onemda offers.</div>
-              <ul className="services__data">
-                {activities.map((activity, index) => <Service key={index} service={activity} />)}
-              </ul>
+              <div>Here is a list of all the activities Onemda offers.</div>
+              {activities.map((activity, index) => <ListItem className='list_item' key={index} value={activity.name} />)}
             </div>
           )
         }}
@@ -36,4 +33,4 @@ class Services extends Component {
   }
 }
 
-export default Services
+export default Activities

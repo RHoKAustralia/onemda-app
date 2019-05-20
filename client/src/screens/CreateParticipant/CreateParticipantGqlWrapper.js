@@ -31,7 +31,6 @@ export function CreateParticipantGqlWrapper() {
         {({ error, loading, data }) => {
             if (loading) return <div>Fetching data...</div>
 
-            console.log(data);
             const roles = data;
 
             return (

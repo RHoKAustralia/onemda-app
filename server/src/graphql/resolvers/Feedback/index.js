@@ -1,39 +1,43 @@
 import Feedback from '../../../models/Feedback'
 import Activity from '../../../models/Activity'
-import User from '../../../models/User'
+import User, { Role } from '../../../models/User'
+import { isUserWithRole } from "../User"
 
 const fetchByIDFromModel = async (id, model) => {
   return await model.findById(id)
 }
 
-export async function isTrainer(user) {
-  if (!user) {
-    return false
-  }
-  const eUser = await User.findById(user.id)
-  if (!eUser.roles.includes('trainer')) {
-    return false
-  }
-  return true
-}
-
 export default {
   Query: {
-    feedback: () => {
-      return new Promise((resolve, reject) => {
-        Feedback.find({})
-          .populate()
-          .exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-      });
-    },
+    async feedback (root, args, { user }) {
+      try {
+        if (!user || !isUserWithRole(user, Role.Admin)) {
+          throw Error('Must be a logged in Admin to access feedback')
+        }
+        const feedback = await Feedback.find({}).populate().exec()
+        const newFeedback = await Promise.all(feedback.map(async(f) => {
+          const trainer = await fetchByIDFromModel(f.trainerID, User)
+          const participant = await fetchByIDFromModel(f.participantID, User)
+          const activity = await fetchByIDFromModel(f.activityID, Activity)
+          
+          f.participantName = participant.name
+          f.trainerName = trainer.name
+          f.activityName = activity.name
+          return f
+          
+        }))
+
+        return newFeedback
+      } catch(e) {
+        throw Error(e)
+      }
+    }
   },
   Mutation: {
     async createFeedback (root, { activityID, participantID, participantFeedback, trainerFeedback, comment }, { user }) {
     
       try {
-        const isUserTrainer = await isTrainer(user)
+        const isUserTrainer = await isUserWithRole(user, Role.Trainer)
         if (!isUserTrainer) {
           throw Error('Must be logged in trainer to create feedback.')
         }

@@ -12,7 +12,7 @@ const FEEDBACK_QUERY = gql`
       id
       name
     }
-    users {
+    participants {
       id 
       name
       roles
@@ -47,30 +47,31 @@ export default function () {
       if (loading) return <div>Fetching data...</div>
       if (error) return <div>Error</div>
       const activities = data.activities;
-      const users = data.users;
+      const participants = data.participants;
 
       return (
 
         <Mutation
           mutation={CREATE_FEEDBACK_MUTATION}
           onCompleted={() => {
-            console.log('complete')
           }}
         >
           {(feedback, { loading, error, data }) => {
-            if (error) return <div className="notification">Error Occurred</div>
-            if (loading) return <div className="notification">Submittting...</div>
-            if (data) return <div className="notification">Submitted</div>
-
             return (
-              <FeedbackFormRender
-                feedback={feedback}
-                activities={activities}
-                users={users}
-                initialValues={{
-                  participants: [],
-                  feedback: {}
-                }} />
+              <div>
+                <FeedbackFormRender
+                  feedback={feedback}
+                  activities={activities}
+                  users={participants}
+                  initialValues={{
+                    participants: [],
+                    feedback: {}
+                  }} />
+                {loading && <div className="notification">Submitting...</div>}
+                {data && <div className="notification">Submitted</div>}
+                {error && <div className="notification">Error</div>}
+
+              </div>
 
             )
           }}

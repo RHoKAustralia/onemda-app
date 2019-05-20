@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import './styles.scss'
 
 class ListItem extends Component {
   render() {
-    const { value } = this.props
+    const { value, className } = this.props
     return (
-      <div>{value}</div>
+      <div className={className}>
+        {value}
+      </div> 
     )
   }
 }

@@ -1,18 +1,22 @@
 // The User schema.
 import User from "../../../models/User";
 const bcrypt = require('bcrypt');
+import { Role } from '../../../models/User'
 
-export async function isAdmin(user) {
-  if (!user) {
-    return false
+export async function isUserWithRole(user, role) {
+  try {
+    if (!user) {
+      throw Error('No user is authenticated')
+    }
+    const retrievedUser = await User.findById(user.id)
+    if (retrievedUser.roles.includes(role)) {
+      return true
+    } else {
+      return false
+    }
+  } catch(e) {
+    throw Error(e)
   }
-
-  const eUser = await User.findById(user.id)
-  if (eUser.roles.includes('admin')) {
-    return true
-  }
-
-  return false
 }
 
 export default {
@@ -25,21 +29,26 @@ export default {
       });
     },
     async participants (root, args, { user }) {
-      const isUserAdmin = await isAdmin(user)
-      if (!isUserAdmin) {
-        throw Error('You must be a logged in admin to create a user')
+      try {
+        const isUserAdmin = await isUserWithRole(user, Role.Admin)
+        const isUserTrainer = await isUserWithRole(user, Role.Trainer)
+        if (!isUserAdmin && !isUserTrainer) {
+          throw Error('You must be a logged in admin or trainer to query participants')
+        }
+  
+        const users =  await new Promise((resolve, reject) => {
+          User.find({})
+            .populate()
+            .exec((err, res) => {
+              err ? reject(err) : resolve(res);
+            });
+        });
+        return users.filter(u => {
+          return u.roles.includes(Role.Participant)
+        })
+      } catch(e) {
+        throw Error(e)
       }
-
-      const users =  await new Promise((resolve, reject) => {
-        User.find({})
-          .populate()
-          .exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-      });
-      return users.filter(u => {
-        return u.roles.includes('participant')
-      })
     },
     users: () => {
       return new Promise((resolve, reject) => {
@@ -53,7 +62,7 @@ export default {
   },
   Mutation: {
     async createUser (root, { username, name, email, password, roles, stream }, { user }) {
-      const isUserAdmin = await isAdmin(user)
+      const isUserAdmin = await isUserWithRole(user, Role.Admin)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to create a user')
       }
@@ -76,7 +85,7 @@ export default {
       });
     },
     async editUser (root, { id, name, email, password, roles }, { user }) {
-      const isUserAdmin = await isAdmin(user)
+      const isUserAdmin = await isUserWithRole(user, Role.Admin)
       if (!isUserAdmin) {
         throw Error('You must be a logged in admin to edit a user')
       }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Services from './Services'
+import Activities from './Activities'
 import LoginScreen from '../screens/Login'
 import FeedbackScreen from '../screens/Feedback'
 import NavBar from './NavBar'
@@ -18,7 +18,7 @@ class App extends Component {
           <Switch>
             <Route exact path={Routes.HOME} component={LoginScreen} />
             <Route exact path={Routes.LOGIN} component={LoginScreen} />
-            <Route exact path={Routes.SERVICES} component={Services} />
+            <Route exact path={Routes.ACTIVITIES} component={Activities} />
             <Route exact path={Routes.FEEDBACK} component={FeedbackScreen} />
             <Route exact path = {Routes.ADMIN} component = {AdminPage}/>
             <Route exact path = {Routes.CREATE_PARTICIPANT} component = {CreateParticipantGqlWrapper}/>

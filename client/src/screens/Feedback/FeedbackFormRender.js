@@ -3,6 +3,7 @@ import { FilterList } from '../../components/FilterList';
 import { FeedbackCard } from '../../components/FeedbackCard';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import "./styles.scss"
 
 // TODO: Yup schema validation - Only appears to be checking activity/participants has a value
 const FeedbackSchema = Yup.object().shape({
@@ -32,21 +33,13 @@ const feedbackMutationVariablesFromParticipantFeedback = ({
             },
         },
         trainer: {
-            participantEnjoyment: { //TODO: refactor onchange to set value directly to avoid extracting here.
+            participantEnjoyment: {
                 value: participantEnjoyment
             },
             participantEngagement: {
                 value: participantEngagement
             },
             comment,
-            assistance: {
-                physical: {
-                    value: physicalAssistance,
-                },
-                verbal: {
-                    value: verbalAssistance,
-                },
-            }
         },
     }
 }) => ({
@@ -56,10 +49,11 @@ const feedbackMutationVariablesFromParticipantFeedback = ({
     trainerFeedback: {
         engagement: participantEnjoyment,
         enjoyment: participantEngagement,
-        assistance: {
-            physical: physicalAssistance,
-            verbal: verbalAssistance,
-        },
+        assistance: {},
+        //   assistance: { // TODO: assistance questions
+        //     verbal: "Low",
+        //     physical: "None",
+        //   }
     }
 })
 
@@ -110,11 +104,11 @@ export function FeedbackFormRender({
                 setFieldValue(id, value);
             }
 
-            console.log(values);
-
             return (
                 <form onSubmit={handleSubmit}>
-                    <div className="feedback_form__title">Submit Feedback</div>
+                    {/* {JSON.stringify(errors)}\
+                    {JSON.stringify(isValid)} */}
+                    <p>Submit Feedback</p>
                     <div>Activities</div>
                     <FilterList options={activities.map(v => ({
                         label: v.name,
@@ -127,15 +121,10 @@ export function FeedbackFormRender({
                         isMulti
                         options={
                             values.participants.length < 1
-                                ? users
-                                    // TODO: remove client side filtering when participant GraphQL query is completed.
-                                    .filter(
-                                        ({ roles }) => roles.includes("participant")
-                                    )
-                                    .map(v => ({
-                                        label: v.name,
-                                        value: v,
-                                    }))
+                                ? users.map(v => ({
+                                    label: v.name,
+                                    value: v,
+                                }))
                                 : []
 
                         }
@@ -146,6 +135,7 @@ export function FeedbackFormRender({
                     </div>
 
                     <button
+                        className="feedback_form_submit_button"
                         disabled={!isValid}
                         type="submit"
                     >Submit</button>

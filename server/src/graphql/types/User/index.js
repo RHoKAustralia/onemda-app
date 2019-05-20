@@ -1,10 +1,8 @@
 export default `
   type User {
     id: String!
-    email: String
     name: String!
     roles: [String!]!
-    username: String!
   }
   enum Stream {
     None,

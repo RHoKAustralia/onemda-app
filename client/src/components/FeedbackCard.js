@@ -13,7 +13,7 @@ export function FeedbackCard({
 
     return (
         <div className="feedback-card" key={participant.id}>
-            <div className="feedback-card__participant-name">{participant.name || participant.email || "John Doe"}</div>
+            <div className="feedback-card__participant-name">{participant.name || "John Doe"}</div>
             <div className="question-group">
                 <div className="question-group__title"> Participant Question (Optional)</div>
                 <FeedbackRatingSelector

@@ -1,6 +1,7 @@
 import Activity from "../../../models/Activity"
-import { isAdmin } from "../User/index"
+import { isUserWithRole } from "../User"
 import Service from "../../../models/Service"
+import { Role } from '../../../models/User'
 
 const fetchService = async function(id) {
   return await Service.findOne({_id: id})
@@ -22,7 +23,7 @@ export default {
   Mutation: {
     async createActivity (root, { name, services }, { user }) {
       try {
-        const isUserAdmin = await isAdmin(user)
+        const isUserAdmin = await isUserWithRole(user, Role.Admin)
         if (!isUserAdmin) {
           throw Error('You must be a logged in admin to create a user')
         }
